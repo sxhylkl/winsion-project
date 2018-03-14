@@ -2596,10 +2596,10 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "D:\\project\\other_web\\weex\\weex-project\\src\\components\\select-status.vue"
+__vue_options__.__file = "D:\\project-manage\\winsion-project\\weex-project\\src\\components\\select-status.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-__vue_options__._scopeId = "data-v-1a715f2b"
+__vue_options__._scopeId = "data-v-276b748a"
 __vue_options__.style = __vue_options__.style || {}
 __vue_styles__.forEach(function (module) {
   for (var name in module) {
@@ -2768,10 +2768,10 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "D:\\project\\other_web\\weex\\weex-project\\node_modules\\weex-ui\\packages\\wxc-button\\index.vue"
+__vue_options__.__file = "D:\\project-manage\\winsion-project\\weex-project\\node_modules\\weex-ui\\packages\\wxc-button\\index.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-__vue_options__._scopeId = "data-v-7cf1fc8a"
+__vue_options__._scopeId = "data-v-4bab1829"
 __vue_options__.style = __vue_options__.style || {}
 __vue_styles__.forEach(function (module) {
   for (var name in module) {
@@ -3016,10 +3016,10 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "D:\\project\\other_web\\weex\\weex-project\\src\\index.vue"
+__vue_options__.__file = "D:\\project-manage\\winsion-project\\weex-project\\src\\index.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-__vue_options__._scopeId = "data-v-6a78e2b4"
+__vue_options__._scopeId = "data-v-218303b5"
 __vue_options__.style = __vue_options__.style || {}
 __vue_styles__.forEach(function (module) {
   for (var name in module) {
