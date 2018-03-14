@@ -1,0 +1,2593 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>能耗统计表</title>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="../js/echarts.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding-top: 36px;
+            background: #041024;
+        }
+
+        /*导航样式*/
+        #nav {
+            position: absolute;
+            left: 33px;
+            top: 7px;
+            overflow: hidden;
+            height: 30px;
+        }
+
+        #nav > div {
+            display: inline-block;
+            margin-right: 10px;
+            text-align: center;
+            text-indent: 1em;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            vertical-align: bottom;
+            width: 120px;
+            line-height: 30px;
+            background: url("../img/navSmall.png") no-repeat center right;
+        }
+
+        .change-ele-background1 {
+            background: url("../img/nav.png") no-repeat !important;
+        }
+
+        /*内容样式*/
+        /*首页*/
+        #contentTotal {
+            margin: 0 auto;
+            width: 1857px;
+            height: 898px;
+            background: url("../img/energySaving.png") no-repeat;
+        }
+
+        .contentTotal-all {
+            overflow: hidden;
+        }
+
+        .contentTotal-all > div {
+            float: left;
+        }
+
+        .contentTotal-group {
+            position: relative;
+            padding-top: 45px;
+            width: 900px;
+            height: 400px;
+        }
+
+        .contentTotal-line {
+            padding-top: 25px;
+            width: 900px;
+            height: 200px;
+        }
+
+        .contentTotal-line-title {
+            position: absolute;
+            left: 42px;
+            top: 65px;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .contentTotal-bar {
+            margin-top: -25px;
+            padding-left: 38px;
+            width: 810px;
+            height: 200px;
+        }
+
+        .contentTotal-pie-1, .contentTotal-pie-2 {
+            width: 400px;
+            height: 400px;
+            margin-left: 50px;
+        }
+
+        .contentTotal-pie-2 {
+            margin-left: 65px;
+        }
+
+        /*分页*/
+        #contentEle, #contentWater {
+            margin: 0 auto;
+            width: 1857px;
+            height: 898px;
+            overflow: hidden;
+        }
+
+        #contentEle {
+            background: url("../img/ele.png") no-repeat;
+        }
+
+        #contentWater {
+            background: url("../img/water.png") no-repeat;
+        }
+
+        .content-line, .content-bar, .content-pie, .content-stack {
+            float: left;
+        }
+
+        .content-line {
+            width: 740px;
+            height: 450px;
+        }
+
+        .content-bar {
+            width: 1100px;
+            height: 450px;
+        }
+
+        .content-stack {
+            width: 740px;
+            height: 450px;
+        }
+
+        .content-pie {
+            width: 1100px;
+            height: 450px;
+        }
+
+        .content-line-total {
+            padding-top: 30px;
+            padding-left: 10px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .content-bar-date, .content-bar-gif, .content-bar-month, .content-bar-year {
+            position: relative;
+            float: left;
+            padding-top: 30px;
+            padding-left: 28px;
+            width: 520px;
+            height: 195px;
+        }
+
+        .content-bar-gif > div {
+            position: absolute;
+            left: 27px;
+            top: 13px;
+            width: 525px;
+            height: 214px;
+            background: url("../img/ww.gif") no-repeat;
+        }
+
+        .content-stack-sys, .content-stack-area {
+            padding-top: 60px;
+            padding-left: 25px;
+            width: 700px;
+            height: 160px;
+        }
+
+        .content-pie-sys, .content-pie-area {
+            float: left;
+            padding-left: 20px;
+            width: 530px;
+            height: 400px;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="nav">
+    <!--导航-->
+    <div id="energy" class="change-ele-background1">能效概况</div>
+    <div id="electricity">电力能耗</div>
+    <div id="water">用水能耗</div>
+</div>
+
+<div id="content">
+
+    <div id="contentTotal">
+        <!--能源概况-->
+        <div id="contentTotalEle" class="contentTotal-all">
+            <!--折线图和柱状图，两个饼图-->
+            <div class="contentTotal-group">
+                <div class="contentTotal-line-title">实时电力能耗</div>
+                <div class="contentTotal-line"></div>
+                <div class="contentTotal-bar"></div>
+            </div>
+            <div class="contentTotal-pie-1 change-ele-scale"></div>
+            <div class="contentTotal-pie-2 change-ele-scale"></div>
+        </div>
+        <div id="contentTotalWater" class="contentTotal-all">
+            <!--折线图，两个饼图-->
+            <div class="contentTotal-group">
+                <div class="contentTotal-line-title">实时用水能耗</div>
+                <div class="contentTotal-line"></div>
+                <div class="contentTotal-bar"></div>
+            </div>
+            <div class="contentTotal-pie-1 change-ele-scale"></div>
+            <div class="contentTotal-pie-2 change-ele-scale"></div>
+        </div>
+    </div>
+
+    <div id="contentEle" style="display: none">
+        <div class="content-line">
+            <div class="content-line-total"></div>
+        </div>
+        <div class="content-bar">
+            <div class="content-bar-date"></div>
+            <div class="content-bar-gif">
+                <div></div>
+            </div>
+            <div class="content-bar-month"></div>
+            <div class="content-bar-year"></div>
+        </div>
+        <div class="content-stack">
+            <div class="content-stack-sys"></div>
+            <div class="content-stack-area"></div>
+        </div>
+        <div class="content-pie">
+            <div class="content-pie-sys change-ele-scale"></div>
+            <div class="content-pie-area change-ele-scale"></div>
+        </div>
+    </div>
+
+    <div id="contentWater" style="display: none">
+        <div class="content-line">
+            <div class="content-line-total"></div>
+        </div>
+        <div class="content-bar">
+            <div class="content-bar-date"></div>
+            <div class="content-bar-gif">
+                <div></div>
+            </div>
+            <div class="content-bar-month"></div>
+            <div class="content-bar-year"></div>
+        </div>
+        <div class="content-stack">
+            <div class="content-stack-sys"></div>
+            <div class="content-stack-area"></div>
+        </div>
+        <div class="content-pie">
+            <div class="content-pie-sys change-ele-scale"></div>
+            <div class="content-pie-area change-ele-scale"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    $(function () {
+        //ip地址
+        var url = 'http://172.16.0.17:9431'
+        //初始化设置总数量
+        var totalNum = 8
+        //设置计数器
+        var index = 0
+        //设置当前页面标识
+        var status = 'energy'
+        //切换导航，只调用一次图表函数
+        var eleFirst = true, waterFirst = true
+
+        //所有图表的请求返回数据带的时间
+        //总图
+        var totalEleLineTime = 0, totalEleBarHourTime = 0, totalElePieSysTime = 0, totalElePieAreaTime = 0, totalWaterLineTime = 0, totalWaterBarHourTime = 0, totalWaterPieSysTime = 0, totalWaterPieAreaTime = 0
+        //电图
+        var eleLineTime = 0, eleBarDateTime = 0, eleBarMonthTime = 0, eleBarYearTime = 0, eleStackSysTime = 0, eleStackAreaTime = 0, elePieSysTime = 0, elePieAreaTime = 0
+        //水图
+        var waterLineTime = 0, waterBarDateTime = 0, waterBarMonthTime = 0, waterBarYearTime = 0, waterStackSysTime = 0, waterStackAreaTime = 0, waterPieSysTime = 0, waterPieAreaTime = 0
+
+        //所有图表的请求函数列表
+        //总图
+        var totalEleLine, totalEleBarHour, totalElePieSys, totalElePieArea, totalWaterLine, totalWaterBarHour, totalWaterPieSys, totalWaterPieArea
+        //电图
+        var eleLine, eleBarDate, eleBarMonth, eleBarYear, eleStackSys, eleStackArea, elePieSys, elePieArea
+        //水图
+        var waterLine, waterBarDate, waterBarMonth, waterBarYear, waterStackSys, waterStackArea, waterPieSys, waterPieArea
+
+
+        //===================================================================
+        //初始化图表
+        initTotal()
+
+        //导航切换
+        var $navList = $('#nav>div')
+        var $energy = $($navList[0])
+        var $ele = $($navList[1])
+        var $water = $($navList[2])
+
+        $energy.click(function () {
+            //对应内容的切换
+            $('#contentEle').hide()
+            $('#contentWater').hide()
+            $('#contentTotal').show()
+            //选中后的样式变化
+            $('#energy').addClass('change-ele-background1')
+            $('#electricity').removeClass('change-ele-background1')
+            $('#water').removeClass('change-ele-background1')
+            //更新状态
+            status = 'energy'
+        })
+        $ele.click(function () {
+            //对应内容的切换
+            $('#contentTotal').hide()
+            $('#contentWater').hide()
+            $('#contentEle').show()
+            //选中后的样式变化
+            $('#energy').removeClass('change-ele-background1')
+            $('#electricity').addClass('change-ele-background1')
+            $('#water').removeClass('change-ele-background1')
+            //更新状态
+            status = 'electricity'
+            //只调用一次
+            if (eleFirst) {
+                initTotalEle()
+                eleFirst = false
+            }
+        })
+        $water.click(function () {
+            //对应内容的切换
+            $('#contentTotal').hide()
+            $('#contentEle').hide()
+            $('#contentWater').show()
+            //选中后的样式变化
+            $('#energy').removeClass('change-ele-background1')
+            $('#electricity').removeClass('change-ele-background1')
+            $('#water').addClass('change-ele-background1')
+            //更新状态
+            status = 'water'
+            //只调用一次
+            if (waterFirst) {
+                initTotalWater()
+                waterFirst = false
+            }
+        })
+
+        //===================================================
+        //绘制总图
+        function initTotal() {
+
+            //绘制总图
+            var $contentTotalEleLine = $('#contentTotalEle .contentTotal-line')[0]               //电-折线
+            var $contentTotalEleBar = $('#contentTotalEle .contentTotal-bar')[0]               //电-柱状图
+            var $contentTotalElePieSys = $('#contentTotalEle>.contentTotal-pie-1')[0]              //电-饼-系统
+            var $contentTotalElePieArea = $('#contentTotalEle>.contentTotal-pie-2')[0]               //电-区域
+
+            totalEleLine = initTotalEleLine($contentTotalEleLine)
+            totalEleBarHour = initTotalEleBarHour($contentTotalEleBar)
+            totalElePieSys = initTotalElePieSys($contentTotalElePieSys)
+            totalElePieArea = initTotalElePieArea($contentTotalElePieArea)
+
+            var $contentTotalWaterLine = $('#contentTotalWater .contentTotal-line')[0]              //水-折线
+            var $contentTotalWaterBar = $('#contentTotalWater .contentTotal-bar')[0]                        //水-柱状图
+            var $contentTotalWaterPieSys = $('#contentTotalWater>.contentTotal-pie-1')[0]             //水-饼-系统
+            var $contentTotalWaterPieArea = $('#contentTotalWater>.contentTotal-pie-2')[0]               //水-饼-区域
+
+            totalWaterLine = initTotalWaterLine($contentTotalWaterLine)
+            totalWaterBarHour = initTotalWaterBarHour($contentTotalWaterBar)
+            totalWaterPieSys = initTotalWaterPieSys($contentTotalWaterPieSys)
+            totalWaterPieArea = initTotalWaterPieArea($contentTotalWaterPieArea)
+        }
+
+        //绘制电力方面图表
+        function initTotalEle() {
+
+            //绘制电力方面图表
+            var $contentEleLineTotal = $('#contentEle .content-line-total')[0]   //电-折线-总
+            eleLine = initEleLine($contentEleLineTotal)
+
+            var $contentEleBarDate = $('#contentEle .content-bar-date')[0]   //电-柱-天
+            var $contentEleBarMonth = $('#contentEle .content-bar-month')[0]   //电-柱-月
+            var $contentEleBarYear = $('#contentEle .content-bar-year')[0]   //电-柱-年
+            eleBarDate = initEleBarDate($contentEleBarDate)
+            eleBarMonth = initEleBarMonth($contentEleBarMonth)
+            eleBarYear = initEleBarYear($contentEleBarYear)
+
+            var $contentElePieSys = $('#contentEle .content-pie-sys')[0]   //电-饼-系统
+            var $contentElePieArea = $('#contentEle .content-pie-area')[0]  //电-饼-区域
+            elePieSys = initElePieSys($contentElePieSys)
+            elePieArea = initElePieArea($contentElePieArea)
+
+            var $contentEleStackSys = $('#contentEle .content-stack-sys')[0]   //电-堆-系统
+            var $contentEleStackArea = $('#contentEle .content-stack-area')[0]   //电-堆-区域
+            eleStackSys = initEleStackSys($contentEleStackSys)
+            eleStackArea = initEleStackArea($contentEleStackArea)
+        }
+
+        //绘制用水方面图表
+        function initTotalWater() {
+
+            //绘制用水方面图表
+            var $contentWaterLineTotal = $('#contentWater .content-line-total')[0]   //电-折线-总
+            waterLine = initWaterLine($contentWaterLineTotal)
+
+            var $contentWaterBarDate = $('#contentWater .content-bar-date')[0]   //电-柱-天
+            var $contentWaterBarMonth = $('#contentWater .content-bar-month')[0]   //电-柱-月
+            var $contentWaterBarYear = $('#contentWater .content-bar-year')[0]   //电-柱-年
+            waterBarDate = initWaterBarDate($contentWaterBarDate)
+            waterBarMonth = initWaterBarMonth($contentWaterBarMonth)
+            waterBarYear = initWaterBarYear($contentWaterBarYear)
+
+            var $contentWaterPieSys = $('#contentWater .content-pie-sys')[0]   //电-饼-系统
+            var $contentWaterPieArea = $('#contentWater .content-pie-area')[0]  //电-饼-区域
+            waterPieSys = initWaterPieSys($contentWaterPieSys)
+            waterPieArea = initWaterPieArea($contentWaterPieArea)
+
+            var $contentWaterStackSys = $('#contentWater .content-stack-sys')[0]   //电-堆-系统
+            var $contentWaterStackArea = $('#contentWater .content-stack-area')[0]   //电-堆-区域
+            waterStackSys = initWaterStackSys($contentWaterStackSys)
+            waterStackArea = initWaterStackArea($contentWaterStackArea)
+        }
+
+        //=========================================================
+        //获取变化的数据
+        function getChangeData() {
+            $.ajax({
+                type: "GET",
+                url: url + "/energy/getUpdateList",
+                success: function (result) {
+                    var a, b, c, d, e, f, g, h
+
+                    var currentIndex = 0
+                    //获取当前页面的需要更新的图表
+                    if (status == 'energy') {
+                        result.data.forEach(function (item) {
+                            if (item.graphType == "AM_TOTAL_TICK") {
+                                if (totalEleLineTime < item.timeStamp) {
+                                    currentIndex++;
+                                    a = totalEleLine;
+                                }
+                            } else if (item.graphType == "AM_HOUR_TODAY") {
+                                if (totalEleBarHourTime < item.timeStamp) {
+                                    currentIndex++;
+                                    b = totalEleBarHour;
+                                }
+                            } else if (item.graphType == "AM_SYSTEM_TODAY_SUM") {
+                                if (totalElePieSysTime < item.timeStamp) {
+                                    currentIndex++;
+                                    c = totalElePieSys;
+                                }
+                            } else if (item.graphType == "AM_AREA_TODAY_SUM") {
+                                if (totalElePieAreaTime < item.timeStamp) {
+                                    currentIndex++;
+                                    d = totalElePieArea;
+                                }
+                            } else if (item.graphType == "WATER_TOTAL_TICK") {
+                                if (totalWaterLineTime < item.timeStamp) {
+                                    currentIndex++;
+                                    e = totalWaterLine;
+                                }
+                            } else if (item.graphType == "WATER_HOUR_TODAY") {
+                                if (totalWaterBarHourTime < item.timeStamp) {
+                                    currentIndex++;
+                                    f = totalWaterBarHour;
+                                }
+                            } else if (item.graphType == "WATER_SYSTEM_TODAY_SUM") {
+                                if (totalWaterPieSysTime < item.timeStamp) {
+                                    currentIndex++;
+                                    g = totalWaterPieSys;
+                                }
+                            } else if (item.graphType == "WATER_AREA_TODAY_SUM") {
+                                if (totalWaterPieAreaTime < item.timeStamp) {
+                                    currentIndex++;
+                                    h = totalWaterPieArea;
+                                }
+                            }
+                        })
+                    } else if (status == 'electricity') {
+                        result.data.forEach(function (item) {
+                            if (item.graphType == "AM_TOTAL_TICK") {
+                                if (eleLineTime < item.timeStamp) {
+                                    currentIndex++;
+                                    a = eleLine;
+                                }
+                            } else if (item.graphType == "AM_TOTAL_WEEKLY") {
+                                if (eleBarDateTime < item.timeStamp) {
+                                    currentIndex++;
+                                    b = eleBarDate;
+                                }
+                            } else if (item.graphType == "AM_TOTAL_MONTHLY") {
+                                if (eleBarMonthTime < item.timeStamp) {
+                                    currentIndex++;
+                                    c = eleBarMonth;
+                                }
+                            } else if (item.graphType == "AM_TOTAL_ANNUAL") {
+                                if (eleBarYearTime < item.timeStamp) {
+                                    currentIndex++;
+                                    d = eleBarYear;
+                                }
+                            } else if (item.graphType == "AM_AREA_TICK") {
+                                if (eleStackAreaTime < item.timeStamp) {
+                                    currentIndex++;
+                                    e = eleStackArea;
+                                }
+                            } else if (item.graphType == "AM_SYSTEM_TICK") {
+                                if (eleStackSysTime < item.timeStamp) {
+                                    currentIndex++;
+                                    f = eleStackSys;
+                                }
+                            } else if (item.graphType == "AM_SYSTEM_TODAY_SUM") {
+                                if (elePieSysTime < item.timeStamp) {
+                                    currentIndex++;
+                                    g = elePieSys;
+                                }
+                            } else if (item.graphType == "AM_AREA_TODAY_SUM") {
+                                if (elePieAreaTime < item.timeStamp) {
+                                    currentIndex++;
+                                    h = elePieArea;
+                                }
+                            }
+                        })
+                    } else {
+                        result.data.forEach(function (item) {
+                            if (item.graphType == "WATER_TOTAL_TICK") {
+                                if (waterLineTime < item.timeStamp) {
+                                    currentIndex++;
+                                    a = waterLine;
+                                }
+                            } else if (item.graphType == "WATER_TOTAL_WEEKLY") {
+                                if (waterBarDateTime < item.timeStamp) {
+                                    currentIndex++;
+                                    b = waterBarDate;
+                                }
+                            } else if (item.graphType == "WATER_TOTAL_MONTHLY") {
+                                if (waterBarMonthTime < item.timeStamp) {
+                                    currentIndex++;
+                                    c = waterBarMonth;
+                                }
+                            } else if (item.graphType == "WATER_TOTAL_ANNUAL") {
+                                if (waterBarYearTime < item.timeStamp) {
+                                    currentIndex++;
+                                    d = waterBarYear;
+                                }
+                            } else if (item.graphType == "WATER_AREA_TICK") {
+                                if (waterStackAreaTime < item.timeStamp) {
+                                    currentIndex++;
+                                    e = waterStackArea;
+                                }
+                            } else if (item.graphType == "WATER_SYSTEM_TICK") {
+                                if (waterStackSysTime < item.timeStamp) {
+                                    currentIndex++;
+                                    f = waterStackSys;
+                                }
+                            } else if (item.graphType == "WATER_SYSTEM_TODAY_SUM") {
+                                if (waterPieSysTime < item.timeStamp) {
+                                    currentIndex++;
+                                    g = waterPieSys;
+                                }
+                            } else if (item.graphType == "WATER_AREA_TODAY_SUM") {
+                                if (waterPieAreaTime < item.timeStamp) {
+                                    currentIndex++;
+                                    h = waterPieArea;
+                                }
+                            }
+                        })
+                    }
+                    //判断当前页面的更新数量
+                    totalNum = currentIndex
+                    if (totalNum != 0) {
+                        //重置计数器
+                        index = 0
+                        //调用相对应的接口
+                        a && a()
+                        b && b()
+                        c && c()
+                        d && d()
+                        e && e()
+                        f && f()
+                        g && g()
+                        h && h()
+                    }else {
+                        getChangeData()
+                    }
+
+                }
+            });
+        }
+
+        //====================================================
+        //总图-电力-折线
+        function initTotalEleLine(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+            //配置相关信息
+            var option = {
+                tooltip: {
+                    trigger: 'axis',
+                    formatter: function (params) {
+                        params = params[0];
+                        var date = new Date(params.name);
+                        var hour = date.getHours();//获取小时数(0-23)
+                        var minutes = date.getMinutes();//获取分钟数(0-59)
+                        var seconds = date.getSeconds();//获取分钟数(0-59)
+                        if (hour < 10) {
+                            hour = '0' + hour
+                        }
+                        if (minutes < 10) {
+                            minutes = '0' + minutes
+                        }
+                        if (seconds < 10) {
+                            seconds = '0' + seconds
+                        }
+
+                        return hour + ':' + minutes + ':' + seconds + '--' + params.value[1] + 'kW·h';
+                    },
+                    axisPointer: {
+                        animation: false
+                    }
+                },
+                xAxis: {
+                    type: 'time',
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#fff'
+                        },
+                        formatter: function (value, index) {
+                            // 格式化成月/日，只在第一个刻度显示年份
+                            var date = new Date(value);
+                            var hour = date.getHours()
+                            var minutes = date.getMinutes()
+                            var seconds = date.getSeconds()
+                            if (hour < 10) {
+                                hour = '0' + hour
+                            }
+                            if (minutes < 10) {
+                                minutes = '0' + minutes
+                            }
+                            if (seconds < 10) {
+                                seconds = '0' + seconds
+                            }
+                            return hour + ':' + minutes + ':' + seconds;
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    }
+                },
+                yAxis: {
+                    name : '电量(kW·h)',
+                    type: 'value',
+                    boundaryGap: [0, '100%'],
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    }
+                },
+                series: [{
+                    type: 'line',
+                    showSymbol: false,
+                    hoverAnimation: false,
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                color: '#ffaa00'
+                            }
+                        }
+                    },
+                    data: []
+                }]
+            };
+            //发送请求
+            var totalEleLine = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=AM_TOTAL_TICK",
+                    success: function (result) {
+                        // 使用刚指定的配置项和数据显示图表。
+                        totalEleLineTime = result.data.timeStamp
+                        option.series[0].data = result.data.elementList
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            totalEleLine()
+            return totalEleLine
+        }
+
+        //总图-电力-柱状图-小时
+        function initTotalEleBarHour(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+            //配置数据
+            var option = {
+                title: {
+                    text: '每小时电力能耗',
+                    textStyle: {
+                        color: '#fff',
+                        fontWeight: 'normal'
+                    }
+                },
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                    formatter:function (val) {
+                        return val[0].name +' : ' + val[0].value + 'kW·h'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: [],
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        name : '电量(kW·h)',
+                        type: 'value',
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        name: '用电量',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data: []
+                    }
+                ]
+            };
+            //发送请求
+            var totalEleBarHour = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=AM_HOUR_TODAY",
+                    success: function (result) {
+                        option.xAxis[0].data = result.data.xaxis
+                        option.series[0].data = result.data.series
+                        totalEleBarHourTime = result.data.timeStamp
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            totalEleBarHour()
+
+            return totalEleBarHour
+        }
+
+        //总图-电力-饼图-按系统
+        function initTotalElePieSys(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c}kW.h ({d}%)"
+                },
+                series: [
+                    {
+                        name: '用电量',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        data: [],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            //发送请求
+            var totalElePieSys = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=AM_SYSTEM_TODAY_SUM",
+                    success: function (result) {
+                        option.series[0].data = result.data.series
+                        totalElePieSysTime = result.data.timeStamp
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            totalElePieSys()
+
+            return totalElePieSys
+        }
+
+        //总图-电力-饼图-按区域
+        function initTotalElePieArea(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c}kW.h ({d}%)"
+                },
+                series: [
+                    {
+                        name: '用电量',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        data: [],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            //发送请求
+            var totalElePieArea = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=AM_AREA_TODAY_SUM",
+                    success: function (result) {
+                        option.series[0].data = result.data.series
+                        totalElePieAreaTime = result.data.timeStamp
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            totalElePieArea()
+
+            return totalElePieArea
+        }
+
+        //总图-用水-折线
+        function initTotalWaterLine(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+            //配置相关信息
+            var option = {
+                tooltip: {
+                    trigger: 'axis',
+                    formatter: function (params) {
+                        params = params[0];
+                        var date = new Date(params.name);
+                        var hour = date.getHours();//获取小时数(0-23)
+                        var minutes = date.getMinutes();//获取分钟数(0-59)
+                        var seconds = date.getSeconds();//获取分钟数(0-59)
+                        if (hour < 10) {
+                            hour = '0' + hour
+                        }
+                        if (minutes < 10) {
+                            minutes = '0' + minutes
+                        }
+                        if (seconds < 10) {
+                            seconds = '0' + seconds
+                        }
+
+                        return hour + ':' + minutes + ':' + seconds + '--' + params.value[1]+'t';
+                    },
+                    axisPointer: {
+                        animation: false
+                    }
+                },
+                xAxis: {
+                    type: 'time',
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#fff'
+                        },
+                        formatter: function (value, index) {
+                            // 格式化成月/日，只在第一个刻度显示年份
+                            var date = new Date(value);
+                            var hour = date.getHours()
+                            var minutes = date.getMinutes()
+                            var seconds = date.getSeconds()
+                            if (hour < 10) {
+                                hour = '0' + hour
+                            }
+                            if (minutes < 10) {
+                                minutes = '0' + minutes
+                            }
+                            if (seconds < 10) {
+                                seconds = '0' + seconds
+                            }
+                            return hour + ':' + minutes + ':' + seconds;
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    }
+                },
+                yAxis: {
+                    name : '水量(t)',
+                    type: 'value',
+                    boundaryGap: [0, '100%'],
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    }
+                },
+                series: [{
+                    type: 'line',
+                    showSymbol: false,
+                    hoverAnimation: false,
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                color: '#ffaa00'
+                            }
+                        }
+                    },
+                    data: []
+                }]
+            };
+            //发送请求
+            var totalWaterLine = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=WATER_TOTAL_TICK",
+                    success: function (result) {
+                        // 使用刚指定的配置项和数据显示图表。
+                        totalWaterLineTime = result.data.timeStamp
+                        option.series[0].data = result.data.elementList
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            totalWaterLine()
+            return totalWaterLine
+        }
+
+        //总图-用水-柱状图-小时
+        function initTotalWaterBarHour(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+            //配置数据
+            var option = {
+                title: {
+                    text: '每小时用水能耗',
+                    textStyle: {
+                        color: '#fff',
+                        fontWeight: 'normal'
+                    }
+                },
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                    formatter:function (val) {
+                        return val[0].name +' : ' + val[0].value + 't'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: [],
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        name : '水量(t)',
+                        type: 'value',
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        },
+                    }
+                ],
+                series: [
+                    {
+                        name: '用水量',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data: []
+                    }
+                ]
+            };
+            //发送请求
+            var totalWaterBarHour = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=WATER_HOUR_TODAY",
+                    success: function (result) {
+                        option.xAxis[0].data = result.data.xaxis
+                        option.series[0].data = result.data.series
+                        totalWaterBarHourTime = result.data.timeStamp
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            totalWaterBarHour()
+
+            return totalWaterBarHour
+        }
+
+        //总图-用水-饼图-按系统
+        function initTotalWaterPieSys(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c}t ({d}%)"
+                },
+                series: [
+                    {
+                        name: '用水量',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        data: [],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            //发送请求
+            var totalWaterPieSys = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=WATER_SYSTEM_TODAY_SUM",
+                    success: function (result) {
+                        option.series[0].data = result.data.series
+                        totalWaterPieSysTime = result.data.timeStamp
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            totalWaterPieSys()
+
+            return totalWaterPieSys
+        }
+
+        //总图-用水-饼图-按区域
+        function initTotalWaterPieArea(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c}t ({d}%)"
+                },
+                series: [
+                    {
+                        name: '用水量',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        data: [],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            //发送请求
+            var totalWaterPieArea = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=WATER_AREA_TODAY_SUM",
+                    success: function (result) {
+                        option.series[0].data = result.data.series
+                        totalWaterPieAreaTime = result.data.timeStamp
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            totalWaterPieArea()
+
+            return totalWaterPieArea
+        }
+
+        //==========================================================
+        //总图-电力-折线
+        function initEleLine(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+            //配置相关信息
+            var option = {
+                tooltip: {
+                    trigger: 'axis',
+                    formatter: function (params) {
+                        params = params[0];
+                        var date = new Date(params.name);
+                        var hour = date.getHours();//获取小时数(0-23)
+                        var minutes = date.getMinutes();//获取分钟数(0-59)
+                        var seconds = date.getSeconds();//获取分钟数(0-59)
+                        if (hour < 10) {
+                            hour = '0' + hour
+                        }
+                        if (minutes < 10) {
+                            minutes = '0' + minutes
+                        }
+                        if (seconds < 10) {
+                            seconds = '0' + seconds
+                        }
+
+                        return hour + ':' + minutes + ':' + seconds + '--' + params.value[1]+'kW·h';
+                    },
+                    axisPointer: {
+                        animation: false
+                    }
+                },
+                xAxis: {
+                    type: 'time',
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#fff'
+                        },
+                        formatter: function (value, index) {
+                            // 格式化成月/日，只在第一个刻度显示年份
+                            var date = new Date(value);
+                            var hour = date.getHours()
+                            var minutes = date.getMinutes()
+                            var seconds = date.getSeconds()
+                            if (hour < 10) {
+                                hour = '0' + hour
+                            }
+                            if (minutes < 10) {
+                                minutes = '0' + minutes
+                            }
+                            if (seconds < 10) {
+                                seconds = '0' + seconds
+                            }
+                            return hour + ':' + minutes + ':' + seconds;
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    }
+                },
+                yAxis: {
+                    name:'电量(kW.h)',
+                    type: 'value',
+                    boundaryGap: [0, '100%'],
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    }
+                },
+                series: [{
+                    type: 'line',
+                    showSymbol: false,
+                    hoverAnimation: false,
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                color: '#ffaa00'
+                            }
+                        }
+                    },
+                    data: []
+                }]
+            };
+            //发送请求
+            var totalEleLine = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=AM_TOTAL_TICK",
+                    success: function (result) {
+                        // 使用刚指定的配置项和数据显示图表。
+                        eleLineTime = result.data.timeStamp
+                        option.series[0].data = result.data.elementList
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            totalEleLine()
+            return totalEleLine
+        }
+
+        //电-柱状图-日
+        function initEleBarDate(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                    formatter:function (val) {
+                        return val[0].name +' : ' + val[0].value + 'kW·h'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: [],
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        name:'电量(kW.h)',
+                        type: 'value',
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        },
+                    }
+                ],
+                series: [
+                    {
+                        name: '用电量',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data: []
+                    }
+                ]
+            };
+            //发送请求
+            var eleBarDate = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=AM_TOTAL_WEEKLY",
+                    success: function (result) {
+                        option.xAxis[0].data = result.data.xaxis
+                        option.series[0].data = result.data.series
+                        eleBarDateTime = result.data.timeStamp
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            eleBarDate()
+
+            return eleBarDate
+        }
+
+        //电-柱状图-月
+        function initEleBarMonth(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                    formatter:function (val) {
+                        return val[0].name +' : ' + val[0].value + 'kW·h'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: [],
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        name:'电量(kW.h)',
+                        type: 'value',
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        name: '用电量',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data: []
+                    }
+                ]
+            };
+            //发送请求
+            var eleBarMonth = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=AM_TOTAL_MONTHLY",
+                    success: function (result) {
+                        option.xAxis[0].data = result.data.xaxis
+                        option.series[0].data = result.data.series
+                        eleBarMonthTime = result.data.timeStamp
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            eleBarMonth()
+
+            return eleBarMonth
+        }
+
+        //电-柱状图-年
+        function initEleBarYear(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                    formatter:function (val) {
+                        return val[0].name +' : ' + val[0].value + 'kW·h'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: [],
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        name:'电量(kW.h)',
+                        type: 'value',
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        },
+                    }
+                ],
+                series: [
+                    {
+                        name: '用电量',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data: []
+                    }
+                ]
+            };
+            //发送请求
+            var eleBarYear = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=AM_TOTAL_ANNUAL",
+                    success: function (result) {
+                        option.xAxis[0].data = result.data.xaxis
+                        option.series[0].data = result.data.series
+                        eleBarYearTime = result.data.timeStamp
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            eleBarYear()
+
+            return eleBarYear
+        }
+
+        //电-层堆图-系统
+        function initEleStackSys(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    },
+                    formatter:function (params) {
+                        var text = '';
+                        for (var i = 0; i < params.length; i++) {
+                            text += '<span style="display: inline-block;width: 10px;height: 10px;border-radius: 5px/5px;background: '+params[i].color+'"></span>&nbsp;'+
+                                    params[i].seriesName +' : '+params[i].value+'kW.h<br>'
+                        }
+                        return text
+                    }
+                },
+                legend: {
+                    data: [],
+                    textStyle: {    //图例文字的样式
+                        color: '#fff',
+                        fontSize: 12
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: [],
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        name:'电量(kW.h)',
+                        type: 'value',
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                series: []
+            };
+            //发送请求
+            var eleStackSys = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=AM_SYSTEM_TICK",
+                    success: function (result) {
+                        eleStackSysTime = result.data.timeStamp
+                        option.legend.data = result.data.legend
+                        option.xAxis[0].data = result.data.xaxis
+                        option.series = result.data.elementList
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            eleStackSys()
+
+            return eleStackSys
+        }
+
+        //电-层堆图-区域
+        function initEleStackArea(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    },
+                    formatter:function (params) {
+                        var text = '';
+                        for (var i = 0; i < params.length; i++) {
+                            text += '<span style="display: inline-block;width: 10px;height: 10px;border-radius: 5px/5px;background: '+params[i].color+'"></span>&nbsp;'+
+                                    params[i].seriesName +' : '+params[i].value+'kW.h<br>'
+                        }
+                        return text
+                    }
+                },
+                legend: {
+                    data: [],
+                    textStyle: {    //图例文字的样式
+                        color: '#fff',
+                        fontSize: 12
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: [],
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        name:'电量(kW.h)',
+                        type: 'value',
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                series: []
+            };
+            //发送请求
+            var eleStackArea = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=AM_AREA_TICK",
+                    success: function (result) {
+                        eleStackAreaTime = result.data.timeStamp
+                        option.legend.data = result.data.legend
+                        option.xAxis[0].data = result.data.xaxis
+                        option.series = result.data.elementList
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            eleStackArea()
+
+            return eleStackArea
+        }
+
+        //总图-电力-饼图-按系统
+        function initElePieSys(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c}kW.h ({d}%)"
+                },
+                series: [
+                    {
+                        name: '用电量',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        data: [],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            //发送请求
+            var elePieSys = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=AM_SYSTEM_TODAY_SUM",
+                    success: function (result) {
+                        // 使用刚指定的配置项和数据显示图表。
+                        option.series[0].data = result.data.series
+                        elePieSysTime = result.data.timeStamp
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            elePieSys()
+
+            return elePieSys
+        }
+
+        //总图-电力-饼图-按区域
+        function initElePieArea(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c}kW.h ({d}%)"
+                },
+                series: [
+                    {
+                        name: '用电量',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        data: [],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            //发送请求
+            var elePieArea = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=AM_AREA_TODAY_SUM",
+                    success: function (result) {
+                        // 使用刚指定的配置项和数据显示图表。
+                        option.series[0].data = result.data.series
+                        elePieAreaTime = result.data.timeStamp
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            elePieArea()
+
+            return elePieArea
+        }
+
+        //=====================================================
+
+        //总图-用水-折线
+        function initWaterLine(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+            //配置相关信息
+            var option = {
+                tooltip: {
+                    trigger: 'axis',
+                    formatter: function (params) {
+                        params = params[0];
+                        var date = new Date(params.name);
+                        var hour = date.getHours();//获取小时数(0-23)
+                        var minutes = date.getMinutes();//获取分钟数(0-59)
+                        var seconds = date.getSeconds();//获取分钟数(0-59)
+                        if (hour < 10) {
+                            hour = '0' + hour
+                        }
+                        if (minutes < 10) {
+                            minutes = '0' + minutes
+                        }
+                        if (seconds < 10) {
+                            seconds = '0' + seconds
+                        }
+
+                        return hour + ':' + minutes + ':' + seconds + '--' + params.value[1]+'t';
+                    },
+                    axisPointer: {
+                        animation: false
+                    }
+                },
+                xAxis: {
+                    type: 'time',
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#fff'
+                        },
+                        formatter: function (value, index) {
+                            // 格式化成月/日，只在第一个刻度显示年份
+                            var date = new Date(value);
+                            var hour = date.getHours()
+                            var minutes = date.getMinutes()
+                            var seconds = date.getSeconds()
+                            if (hour < 10) {
+                                hour = '0' + hour
+                            }
+                            if (minutes < 10) {
+                                minutes = '0' + minutes
+                            }
+                            if (seconds < 10) {
+                                seconds = '0' + seconds
+                            }
+                            return hour + ':' + minutes + ':' + seconds;
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    }
+                },
+                yAxis: {
+                    name:'水量(t)',
+                    type: 'value',
+                    boundaryGap: [0, '100%'],
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    }
+                },
+                series: [{
+                    type: 'line',
+                    showSymbol: false,
+                    hoverAnimation: false,
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                color: '#ffaa00'
+                            }
+                        }
+                    },
+                    data: []
+                }]
+            };
+            //发送请求
+            var totalWaterLine = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=WATER_TOTAL_TICK",
+                    success: function (result) {
+                        // 使用刚指定的配置项和数据显示图表。
+                        waterLineTime = result.data.timeStamp
+                        option.series[0].data = result.data.elementList
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            totalWaterLine()
+            return totalWaterLine
+        }
+
+        //水-柱状图-日
+        function initWaterBarDate(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                    formatter:function (val) {
+                        return val[0].name +' : ' + val[0].value + 't'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: [],
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        name:'水量(t)',
+                        type: 'value',
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        name: '用水量',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data: []
+                    }
+                ]
+            };
+            //发送请求
+            var waterBarDate = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=WATER_TOTAL_WEEKLY",
+                    success: function (result) {
+                        option.xAxis[0].data = result.data.xaxis
+                        option.series[0].data = result.data.series
+                        waterBarDateTime = result.data.timeStamp
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            waterBarDate()
+
+            return waterBarDate
+        }
+
+        //水-柱状图-月
+        function initWaterBarMonth(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                    formatter:function (val) {
+                        return val[0].name +' : ' + val[0].value + 't'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: [],
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        name:'水量(t)',
+                        type: 'value',
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        },
+                    }
+                ],
+                series: [
+                    {
+                        nWATERe: '用水量',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data: []
+                    }
+                ]
+            };
+            //发送请求
+            var waterBarMonth = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=WATER_TOTAL_MONTHLY",
+                    success: function (result) {
+                        option.xAxis[0].data = result.data.xaxis
+                        option.series[0].data = result.data.series
+                        waterBarMonthTime = result.data.timeStamp
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            waterBarMonth()
+
+            return waterBarMonth
+        }
+
+        //水-柱状图-年
+        function initWaterBarYear(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                    formatter:function (val) {
+                        return val[0].name +' : ' + val[0].value + 't'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: [],
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        name:'水量(t)',
+                        type: 'value',
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        },
+                    }
+                ],
+                series: [
+                    {
+                        name: '用水量',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data: []
+                    }
+                ]
+            };
+            //发送请求
+            var waterBarYear = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=WATER_TOTAL_ANNUAL",
+                    success: function (result) {
+                        option.xAxis[0].data = result.data.xaxis
+                        option.series[0].data = result.data.series
+                        waterBarYearTime = result.data.timeStamp
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            waterBarYear()
+
+            return waterBarYear
+        }
+
+        //水-层堆图-系统
+        function initWaterStackSys(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    },
+                    formatter:function (params) {
+                        var text = '';
+                        for (var i = 0; i < params.length; i++) {
+                            text += '<span style="display: inline-block;width: 10px;height: 10px;border-radius: 5px/5px;background: '+params[i].color+'"></span>&nbsp;'+
+                                    params[i].seriesName +' : '+params[i].value+'t<br>'
+                        }
+                        return text
+                    }
+                },
+                legend: {
+                    data: [],
+                    textStyle: {    //图例文字的样式
+                        color: '#fff',
+                        fontSize: 12
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: [],
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        name:'水量(t)',
+                        type: 'value',
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                series: []
+            };
+            //发送请求
+            var waterStackSys = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=WATER_SYSTEM_TICK",
+                    success: function (result) {
+                        waterStackSysTime = result.data.timeStamp
+                        option.legend.data = result.data.legend
+                        option.xAxis[0].data = result.data.xaxis
+                        option.series = result.data.elementList
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            waterStackSys()
+
+            return waterStackSys
+        }
+
+        //水-层堆图-区域
+        function initWaterStackArea(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    },
+                    formatter:function (params) {
+                        var text = '';
+                        for (var i = 0; i < params.length; i++) {
+                            text += '<span style="display: inline-block;width: 10px;height: 10px;border-radius: 5px/5px;background: '+params[i].color+'"></span>&nbsp;'+
+                                    params[i].seriesName +' : '+params[i].value+'t<br>'
+                        }
+                        return text
+                    }
+                },
+                legend: {
+                    data: [],
+                    textStyle: {    //图例文字的样式
+                        color: '#fff',
+                        fontSize: 12
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: [],
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        name:'水量(t)',
+                        type: 'value',
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                ],
+                series: []
+            };
+            //发送请求
+            var waterStackArea = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=WATER_AREA_TICK",
+                    success: function (result) {
+                        waterStackAreaTime = result.data.timeStamp
+                        option.legend.data = result.data.legend
+                        option.xAxis[0].data = result.data.xaxis
+                        option.series = result.data.elementList
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            waterStackArea()
+
+            return waterStackArea
+        }
+
+        //水-饼图-按系统
+        function initWaterPieSys(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c}t ({d}%)"
+                },
+                series: [
+                    {
+                        nWATERe: '用水量',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        data: [],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            //发送请求
+            var waterPieSys = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=WATER_SYSTEM_TODAY_SUM",
+                    success: function (result) {
+                        // 使用刚指定的配置项和数据显示图表。
+                        option.series[0].data = result.data.series
+                        waterPieSysTime = result.data.timeStamp
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            waterPieSys()
+
+            return waterPieSys
+        }
+
+        //水-饼图-按区域
+        function initWaterPieArea(obj) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(obj);
+
+            var option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c}t ({d}%)"
+                },
+                series: [
+                    {
+                        nWATERe: '用水量',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        data: [],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            //发送请求
+            var waterPieArea = function () {
+                $.ajax({
+                    type: "GET",
+                    url: url + "/energy/getGraph?graphType=WATER_AREA_TODAY_SUM",
+                    success: function (result) {
+                        // 使用刚指定的配置项和数据显示图表。
+                        option.series[0].data = result.data.series
+                        waterPieAreaTime = result.data.timeStamp
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                        if (++index == totalNum) {
+                            getChangeData()
+                        }
+                    }
+                })
+            }
+
+            waterPieArea()
+
+            return waterPieArea
+        }
+
+    })
+</script>
+</html>
