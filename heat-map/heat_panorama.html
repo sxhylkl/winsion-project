@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/echarts-all.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        #wrapper{
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        #heatImg{
+            width: 100%;
+            height: 100%;
+            background: url("img/heatmap.png") center no-repeat;
+            background-size: contain;
+        }
+        #heat {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #details{
+            position: absolute;
+            left: calc(50% - 500px);
+            bottom: 50px;
+            width: 1000px;
+            height: 140px;
+            overflow: auto;
+        }
+        #detailsList{
+            white-space: nowrap;
+        }
+        #details .list-one{
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            margin: 0 5px;
+            box-sizing: border-box;
+            cursor: pointer;
+            text-align: center;
+            color: #eee;
+        }
+        #details img{
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        #details img:hover{
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body style="background: #132A48;">
+    <div id="wrapper">
+        <div id="heatImg"></div>
+        <div id="heat"></div>
+        <div id="details">
+            <div id="detailsList">
+                <div class="list-one">
+                    <img src="./img/1.png" alt="">
+                    <div>05:00</div>
+                </div>
+                <div class="list-one">
+                    <img src="./img/2.png" alt="">
+                    <div>05:00</div>
+                </div>
+                <div class="list-one">
+                    <img src="./img/3.png" alt="">
+                    <div>05:00</div>
+                </div>
+                <div class="list-one">
+                    <img src="./img/4.png" alt="">
+                    <div>05:00</div>
+                </div>
+                <div class="list-one">
+                    <img src="./img/5.png" alt="">
+                    <div>05:00</div>
+                </div>
+                <div class="list-one">
+                    <img src="./img/1.png" alt="">
+                    <div>05:00</div>
+                </div>
+                <div class="list-one">
+                    <img src="./img/1.png" alt="">
+                    <div>05:00</div>
+                </div>
+                <div class="list-one">
+                    <img src="./img/1.png" alt="">
+                    <div>05:00</div>
+                </div>
+                <div class="list-one">
+                    <img src="./img/1.png" alt="">
+                    <div>05:00</div>
+                </div>
+                <div class="list-one">
+                    <img src="./img/1.png" alt="">
+                    <div>05:00</div>
+                </div>
+                <div class="list-one">
+                    <img src="./img/1.png" alt="">
+                    <div>05:00</div>
+                </div>
+                <div class="list-one">
+                    <img src="./img/1.png" alt="">
+                    <div>05:00</div>
+                </div>
+                <div class="list-one">
+                    <img src="./img/1.png" alt="">
+                    <div>05:00</div>
+                </div>
+                <div class="list-one">
+                    <img src="./img/1.png" alt="">
+                    <div>05:00</div>
+                </div>
+                <div class="list-one">
+                    <img src="./img/1.png" alt="">
+                    <div>05:00</div>
+                </div>
+                <div class="list-one">
+                    <img src="./img/1.png" alt="">
+                    <div>05:00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+
+    var url = "http://172.16.6.91:9411"
+    //var url = "http://172.16.0.17:9411"
+
+    getData(new Date().getTime())
+    photoThing()
+
+    setInterval(function () {
+        getData(new Date().getTime())
+        photoThing()
+    },10000)
+
+    function getData(currentTime) {
+        $.ajax({
+            type: "POST",
+            url: url + "/kingkong/0.01/predict/findRealTimePassengerFlowInfo?token=1&time=1&data="+currentTime+"&hash=1&opeCode=1",
+            success: function(msg){
+                //根据地图，得到14候车室
+                var currentCount = JSON.parse(msg.data)
+                var pointA1=[],pointA2=[],pointA3=[],pointA4=[],pointA5=[],pointA6=[],pointA7=[]
+                var pointB1=[],pointB2=[],pointB3=[],pointB4=[],pointB5=[],pointB6=[],pointB7=[]
+
+                currentCount.dataList.forEach(function (item) {
+                    switch(item.areaName){
+                        case "A1":
+                            pointA1 = getPoints(1320,1450,400,480,item.predictNumber,15)
+                            break;
+                        case "A2":
+                            pointA2 = getPoints(1160,1320,400,480,item.predictNumber,15)
+                            break;
+                        case "A3":
+                            pointA3 = getPoints(1000,1160,400,480,item.predictNumber,15)
+                            break;
+                        case "A4":
+                            pointA4 = getPoints(800,1000,400,480,item.predictNumber,30)
+                            break;
+                        case "A5":
+                            pointA5 = getPoints(680,800,400,480,item.predictNumber,15)
+                            break;
+                        case "A6":
+                            pointA6 = getPoints(520,680,400,480,item.predictNumber,15)
+                            break;
+                        case "A7":
+                            pointA7 = getPoints(360,520,400,480,item.predictNumber,15)
+                            break;
+                        case "B1":
+                            pointB1 = getPoints(1320,1450,520,620,item.predictNumber,15)
+                            break;
+                        case "B2":
+                            pointB2 = getPoints(1160,1320,520,620,item.predictNumber,15)
+                            break;
+                        case "B3":
+                            pointB3 = getPoints(1000,1160,520,620,item.predictNumber,15)
+                            break;
+                        case "B4":
+                            pointB4 = getPoints(800,1000,520,620,item.predictNumber,30)
+                            break;
+                        case "B5":
+                            pointB5 = getPoints(680,800,520,620,item.predictNumber,15)
+                            break;
+                        case "B6":
+                            pointB6 = getPoints(520,680,520,620,item.predictNumber,15)
+                            break;
+                        case "B7":
+                            pointB7 = getPoints(360,520,520,620,item.predictNumber,15)
+                            break;
+                    }
+
+                })
+                //绘制热力图
+                var point = pointA1.concat(pointA2).concat(pointA3).concat(pointA4).concat(pointA5).concat(pointA6).concat(pointA7)
+                        .concat(pointB1).concat(pointB2).concat(pointB3).concat(pointB4).concat(pointB5).concat(pointB6).concat(pointB7)
+
+                drawHeatGraph(point)
+            }
+        });
+    }
+    //绘制热力图
+    function drawHeatGraph(data) {
+        var myChart = echarts.init($('#heat')[0]);
+
+        var option = {
+            series: [
+                {
+                    type: 'heatmap',
+                    data: data,
+                    hoverable: false,
+                    gradientColors: [{
+                        offset: 0.4,
+                        color: 'green'
+                    }, {
+                        offset: 0.6,
+                        color: 'yellow'
+                    }, {
+                        offset: 0.8,
+                        color: 'red'
+                    }, {
+                        offset: 1,
+                        color: 'red'
+                    }],
+                    minAlpha: 0.2,
+                    valueScale: 1,
+                    opacity: 1
+                }
+            ]
+        };
+
+        myChart.setOption(option);
+    }
+    //计算热力点
+    function getPoints(x1,x2,y1,y2,count,length) {
+        var heatData = [];
+        var arr = count?randAlloc(count,1,150,length):[]
+        arr.forEach(function (item) {
+            var num = item<=100
+                    ?0.4
+                    :item<=300?0.4:0.8
+            heatData.push([
+                x1 + Math.random()*(x2-x1),
+                y1 + Math.random()*(y2-y1),
+                num
+            ]);
+        })
+        return heatData
+    }
+
+    function randAlloc(total, min, max, length) {
+        // 首先要判断是否符合 min 和 max 条件
+        /*if (min * length > total || max * length < total) {
+            throw Error('条件不对');
+        }*/
+
+        var result = [];
+        var restValue = total;
+        var restLength = length;
+        for (var i = 0; i < length - 1; i++) {
+            restLength--;
+            // 这一次要发的数量必须保证剩下的要足最小量
+            // 同进要保证剩下的不能大于需要的最大量
+            var restMin = restLength * min;
+            var restMax = restLength * max;
+            // 可发的量
+            var usable = restValue - restMin;
+            // 最少要发的量
+            var minValue = Math.max(min, restValue - restMax);
+            // 以 minValue 为最左，max 为中线来进行随机，即随机范围是 (max - minValue) * 2
+            // 如果这个范围大于 usable - minValue，取 usable - minValue
+            var limit = Math.min(usable - minValue, (max - minValue) * 2);
+            // 随机部分加上最少要发的部分就是应该发的，但是如果大于 max，最大取到 max
+            result[i] = Math.min(max, minValue + Math.floor(limit * Math.random()));
+            restValue -= result[i];
+        }
+        result[length - 1] = restValue;
+
+        return result;
+    }
+
+    //添加图片并点击事件
+    function photoThing() {
+        var $detailsList = $('#detailsList')
+        //添加图片
+        var hour = 0,min =0,hourStr='',minStr=''
+        var currentHour = new Date().getHours()
+        var currentMin = new Date().getMinutes()
+        var html = ''
+        var num = 1
+        while (hour<currentHour||(hour==currentHour&&min<currentMin)){
+            minStr = min<10?('0'+min):(''+min)
+            hourStr = hour<10?('0'+hour):(''+hour)
+            html += '<div class="list-one"><img src="./img/'+num+'.png" alt=""><div>'+hourStr+':'+minStr+'</div></div>'
+            num = num==5?1:(num+1)
+            min += 5
+            if(min==60){
+                hour += 1
+                min = 0
+            }
+        }
+        html += '<div class="list-one"><img src="./img/0.png" alt=""><div>当前</div></div>'
+        $detailsList.html(html)
+        //做点击事件绑定
+        $detailsList.delegate('.list-one','click',function () {
+            var year = new Date().getFullYear()
+            var month = new Date().getMonth() + 1
+            var date = new Date().getDate()
+            var current = ''+year+month+date+' '+$(this).find('div').html()
+            getData(new Date().getTime(current))
+        })
+
+
+    }
+
+</script>
+</body>
+</html>

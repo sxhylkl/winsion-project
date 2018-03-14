@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link href="http://api.map.baidu.com/library/TrafficControl/1.4/src/TrafficControl_min.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+        #tcBtn,#tcWrap,.anchorBL{display:none}
+    </style>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4C6QgYnq6E56MRi58zLQEQDVl3Xuny2Y"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/AreaRestriction/1.2/src/AreaRestriction_min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/TrafficControl/1.4/src/TrafficControl_min.js"></script>
+    <title>地图展示</title>
+</head>
+<body>
+<div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+
+    // 百度地图API功能
+    var map = new BMap.Map("allmap",{minZoom:1,maxZoom:18});    // 创建Map实例，设置最大和最小的缩放倍数
+    var point = new BMap.Point(113.689872,34.716591) //设置北京西站的坐标
+    var marker = new BMap.Marker(point);       // 创建标注
+    map.addOverlay(marker);                    // 将标注添加到地图中
+    point = new BMap.Point(113.689872,34.716591)
+    map.centerAndZoom(point, 16);  // 初始化地图,设置中心点坐标和地图级别
+    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+
+    //配置路况
+    var ctrl = new BMapLib.TrafficControl();
+    map.addControl(ctrl);
+
+    //初始加载路况
+    setTimeout(function () {
+        $('#tcBtn').click()
+    },0)
+
+    //10s刷新一次路况信息
+    setInterval(function () {
+        $('#tcUpdate').click()
+    },10000)
+
+    //设置拖拽范围
+    var b = new BMap.Bounds(new BMap.Point(113.675472,34.709591),new BMap.Point(113.699872,34.723591)); // 范围 左下角，右上角的点位置
+    try {    // js中尽然还有try catch方法，可以避免bug引起的错误
+        BMapLib.AreaRestriction.setBounds(map, b); // 已map为中心，已b为范围的地图
+    } catch (e) {
+        // 捕获错误异常
+        alert(e);
+    }
+
+</script>

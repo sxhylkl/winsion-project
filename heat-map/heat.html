@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/echarts-all.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        .clearFix:after{
+            display: table;
+            content: '';
+        }
+        #wrapper{
+            position: relative;
+            width: 700px;
+            height: 385px;
+            margin: auto;
+        }
+        #heatImg{
+            margin-top: 20px;
+            width: 100%;
+            height: 100%;
+            background: url("./img/heatmap.png") no-repeat;
+            background-size: contain;
+        }
+        #heat {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body style="background: #132A48;">
+<br>
+    <div id="wrapper">
+        <div id="heatImg"></div>
+        <div id="heat"></div>
+    </div>
+<script type="text/javascript">
+
+    //var url = "http://172.16.6.91:9411"
+    var url = "http://172.16.0.17:9411"
+
+    getData()
+
+    setInterval(getData,10000)
+
+    function getData() {
+        $.ajax({
+            type: "POST",
+            url: url + "/kingkong/0.01/predict/findRealTimePassengerFlowInfo?token=1&time=1&data="+new Date().getTime()+"&hash=1&opeCode=1",
+            success: function(msg){
+                var currentCount = JSON.parse(msg.data)
+                var pointA1=[],pointA2=[],pointA3=[],pointA4=[],pointA5=[],pointA6=[],pointA7=[]
+                var pointB1=[],pointB2=[],pointB3=[],pointB4=[],pointB5=[],pointB6=[],pointB7=[]
+                //模拟14个候车室的热力点
+                currentCount.dataList.forEach(function (item) {
+                    switch(item.areaName){
+                        case "A1":
+                            pointA1 = getPoints(500,540,100,120,item.predictNumber,3)
+                            break;
+                        case "A2":
+                            pointA2 = getPoints(440,500,165,190,item.predictNumber,3)
+                            break;
+                        case "A3":
+                            pointA3 = getPoints(380,440,165,190,item.predictNumber,3)
+                            break;
+                        case "A4":
+                            pointA4 = getPoints(280,380,165,190,item.predictNumber,8)
+                            break;
+                        case "A5":
+                            pointA5 = getPoints(240,280,165,190,item.predictNumber,3)
+                            break;
+                        case "A6":
+                            pointA6 = getPoints(180,240,165,190,item.predictNumber,3)
+                            break;
+                        case "A7":
+                            pointA7 = getPoints(100,180,165,190,item.predictNumber,3)
+                            break;
+                        case "B1":
+                            pointB1 = getPoints(500,540,190,235,item.predictNumber,3)
+                            break;
+                        case "B2":
+                            pointB2 = getPoints(440,500,190,235,item.predictNumber,3)
+                            break;
+                        case "B3":
+                            pointB3 = getPoints(380,440,190,235,item.predictNumber,3)
+                            break;
+                        case "B4":
+                            pointB4 = getPoints(280,380,190,235,item.predictNumber,8)
+                            break;
+                        case "B5":
+                            pointB5 = getPoints(240,280,190,235,item.predictNumber,3)
+                            break;
+                        case "B6":
+                            pointB6 = getPoints(180,240,190,235,item.predictNumber,3)
+                            break;
+                        case "B7":
+                            pointB7 = getPoints(100,180,190,235,item.predictNumber,3)
+                            break;
+                    }
+
+                })
+                /*//第一排
+                var point1 = getPoints(500,540,165,190,eachCount)
+                var point2 = getPoints(440,500,165,190,eachCount)
+                var point3 = getPoints(380,440,165,190,eachCount)
+                var point4 = getPoints(280,380,165,190,eachCount)
+                var point5 = getPoints(240,280,165,190,eachCount)
+                var point6 = getPoints(180,240,165,190,eachCount)
+                var point7 = getPoints(100,180,165,190,eachCount)
+                //第二排
+                var point8 = getPoints(500,540,190,235,eachCount)
+                var point9 = getPoints(440,500,190,235,eachCount)
+                var point10 = getPoints(380,440,190,235,eachCount)
+                var point11 = getPoints(280,380,190,235,eachCount)
+                var point12 = getPoints(240,280,190,235,eachCount)
+                var point13 = getPoints(180,240,190,235,eachCount)
+                var point14 = getPoints(100,180,190,235,eachCount)*/
+                //绘制热力图
+                var point = pointA1.concat(pointA2).concat(pointA3).concat(pointA4).concat(pointA5).concat(pointA6).concat(pointA7)
+                        .concat(pointB1).concat(pointB2).concat(pointB3).concat(pointB4).concat(pointB5).concat(pointB6).concat(pointB7)
+
+                drawHeatGraph(point)
+            }
+        });
+    }
+    //绘制热力图
+    function drawHeatGraph(data) {
+        var myChart = echarts.init($('#heat')[0]);
+
+        var option = {
+            series: [
+                {
+                    type: 'heatmap',
+                    data: data,
+                    hoverable: false,
+                    gradientColors: [{
+                        offset: 0.4,
+                        color: 'green'
+                    }, {
+                        offset: 0.6,
+                        color: 'yellow'
+                    }, {
+                        offset: 0.8,
+                        color: 'red'
+                    }, {
+                        offset: 1,
+                        color: 'red'
+                    }],
+                    minAlpha: 0.2,
+                    valueScale: 1,
+                    opacity: 1
+                }
+            ]
+        };
+
+        myChart.setOption(option);
+    }
+    //计算热力点
+    function getPoints(x1,x2,y1,y2,count,length) {
+        count = parseInt(count)
+        var heatData = [];
+        var arr = count?randAlloc(count,1,150,length):[]
+        arr.forEach(function (item) {
+            var num = item<=100
+                    ?0.4
+                    :item<=300?0.4:0.8
+            heatData.push([
+                x1 + Math.random()*(x2-x1),
+                y1 + Math.random()*(y2-y1),
+                num
+            ]);
+        })
+        return heatData
+    }
+
+    function randAlloc(total, min, max, length) {
+        // 首先要判断是否符合 min 和 max 条件
+        /*if (min * length > total || max * length < total) {
+         throw Error('条件不对');
+         }*/
+
+        var result = [];
+        var restValue = total;
+        var restLength = length;
+        for (var i = 0; i < length - 1; i++) {
+            restLength--;
+            // 这一次要发的数量必须保证剩下的要足最小量
+            // 同进要保证剩下的不能大于需要的最大量
+            var restMin = restLength * min;
+            var restMax = restLength * max;
+            // 可发的量
+            var usable = restValue - restMin;
+            // 最少要发的量
+            var minValue = Math.max(min, restValue - restMax);
+            // 以 minValue 为最左，max 为中线来进行随机，即随机范围是 (max - minValue) * 2
+            // 如果这个范围大于 usable - minValue，取 usable - minValue
+            var limit = Math.min(usable - minValue, (max - minValue) * 2);
+            // 随机部分加上最少要发的部分就是应该发的，但是如果大于 max，最大取到 max
+            result[i] = Math.min(max, minValue + Math.floor(limit * Math.random()));
+            restValue -= result[i];
+        }
+        result[length - 1] = restValue;
+
+        return result;
+    }
+
+</script>
+</body>
+</html>

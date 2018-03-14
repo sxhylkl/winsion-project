@@ -1,0 +1,324 @@
+/*新加巡检情况分布*/
+.patrol-graph{
+    position: relative;
+    width: 1713px;
+    height: 960px;
+    margin: 50px auto 0;
+    background: url("../img/boader.png") no-repeat;
+    background-size: contain;
+}
+.patrol-graph-dialog{
+    position: absolute;
+    box-sizing: border-box;
+    left: 45%;
+    top: 50%;
+    margin-left: -400px;
+    margin-top: -300px;
+    width: 920px;
+    height: 690px;
+    padding: 30px 10px 0;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 5px/5px;
+    z-index: 10;
+    background: url("../img/bigDiag.png") no-repeat;
+    background-size: cover;
+}
+.patrol-graph-wrapper{
+    margin-top: 16px;
+    padding: 0 30px;
+   /* height: 532px;*/
+    overflow: auto;
+}
+.patrol-header{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 3px 0 6px;
+}
+.patrol-close{
+    float: right;
+    width: 15px;
+    height: 15px;
+    color: #fff;
+    cursor: pointer;
+    padding: 12px;
+    margin: 10px 10px 0 0;
+    background: url("../img/close.png") no-repeat;
+    background-size: contain;
+}
+.patrol-info{
+    padding: 10px 15px 0;
+}
+.patrol-info-style{
+    border-bottom: 1px dashed #263b5d;
+    line-height: 50px;
+    color: #eee;
+}
+.patrol-table{
+    position: relative;
+    margin-top: 12px;
+    background: #f0f0f0;
+}
+.patrol-table-header>.patrol-table-content{
+    background: #061935;
+    color: #fff;
+}
+.patrol-table-content .patrol-table-content-item{
+    overflow: hidden;
+}
+.patrol-table-content .patrol-table-content-item>div{
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.patrol-table-content .patrol-table-content-desc{
+    display: none;
+    padding-top: 5px;
+    width: 100%;
+    height: 75px;
+    background: #0f1b2f
+}
+.patrol-table-content-desc>div{
+    width: 100%;
+    color: #fff;
+    text-align: left;
+}
+.patrol-table-content-desc>div:first-child{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.patrol-table-content-desc span{
+    margin-left: 10px;
+    margin-right: 10px
+}
+.patrol-table-content-desc img{
+    margin-right: 10px;
+    width: 35px;
+    height: 35px;
+}
+
+.patrol-img{
+    display: none;
+    position: absolute;
+    width: 315px;
+    height: 560px;
+    z-index: 10000;
+}
+.patrol-img img{
+    width: 100%;
+    height: 100%;
+}
+
+.patrol-table-footer{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.patrol-graph-content{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.patrol-graph-content>div{
+    position: absolute;
+}
+
+.patrol-address{
+    width: 35px;
+    height: 55px;
+    cursor: pointer;
+}
+.patrol-process{
+    position: absolute;
+    left: -32px;
+    top: 33px;
+}
+.patrol-project{
+    position: absolute;
+    left: 75px;
+    top: -20px;
+    width: 220px;
+    height: 275px;
+    background: url("../img/smallDiag.png") no-repeat;
+    z-index: 5;
+    box-sizing: border-box;
+    border-radius: 5px/5px;
+    background-size: contain;
+}
+.patrol-project>.patrol-project-title{
+    padding: 2px 10px 0 0;
+    text-align: right;
+}
+.patrol-project .patrol-project-title-close{
+    margin-top: 7px;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: url("../img/close.png") no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+.patrol-project>.patrol-project-content{
+    width: 210px;
+    height: 230px;
+    padding: 0 15px;
+    overflow: auto;
+}
+.patrol-project>.patrol-project-content>div{
+    border-bottom: 1px dashed #263b5d;
+    line-height: 24px;
+    cursor: pointer;
+}
+.patrol-project .patrol-point{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 7px/7px;
+    border: 1px solid #15273E;
+    margin: 10px 10px 0 10px;
+}
+.patrol-project .patrol-point-info{
+    display: inline-block;
+    width: 126px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: -5px;
+    color: #eee;
+}
+.patrol-project .patrol-project-goal{
+    position: absolute;
+    left: -40px;
+    top: 24px;
+    z-index: 1000;
+    border-right: 15px solid #194998;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid transparent;
+    border-top: 15px solid transparent;
+}
+/*更改弹出框的位置*/
+.patrol-project-change{
+    top: -216px !important;
+}
+.patrol-project-goal-change{
+    top: 220px !important;
+}
+.waiting-room-2-1{
+    display: none;
+    left: 740px;
+    top: 277px;
+}
+.waiting-room-3-1{
+    display: none;
+    left: 970px;
+    top: 267px;
+}
+.waiting-room-4-1{
+    left: 670px;
+    top: 410px;
+}
+.waiting-room-5-1{
+    left: 1050px;
+    top: 355px;
+}
+.waiting-room-6-1{
+    display: none;
+    left: 740px;
+    top: 500px;
+}
+.waiting-room-7-1{
+    display: none;
+    left: 970px;
+    top: 500px;
+}
+.waiting-room-8-1{
+    display: none;
+    left: 740px;
+    top: 620px;
+}
+.waiting-room-9-1{
+    display: none;
+    left: 970px;
+    top: 600px;
+}
+.waiting-room-10-1{
+    left: 670px;
+    top: 750px;
+}
+.waiting-room-11-1{
+    left: 1050px;
+    top: 640px;
+}
+.waiting-room-12-1{
+    display: none;
+    left: 740px;
+    top: 800px;
+}
+.waiting-room-13-1{
+    left: 850px;
+    top: 220px;
+}
+.waiting-room-14-1{
+    display: none;
+    left: 850px;
+    top: 830px;
+}
+.waiting-room-15-1{
+    display: none;
+    left: 1100px;
+    top: 400px;
+}
+.waiting-room-16-1{
+    display: none;
+    left: 1100px;
+    top: 575px;
+}
+.waiting-room-17-1{
+    display: none;
+    left: 600px;
+    top: 400px;
+}
+.waiting-room-18-1{
+    display: none;
+    left: 600px;
+    top: 575px;
+}
+.waiting-room-19-1{
+    left: 850px;
+    top: 580px;
+}
+.waiting-room-20-1{
+    display: none;
+    left: 850px;
+    top: 650px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
