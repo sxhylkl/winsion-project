@@ -1,6 +1,7 @@
 import Vue from 'vue'
+/*global Vue*/
 import Router from 'vue-router'
-import SelectStatus from '@/components/select-status'
+import HelloWorld from '@/components/HelloWorld'
 
 Vue.use(Router)
 
@@ -8,7 +9,8 @@ module.exports = new Router({
   routes: [
     {
       path: '/',
-      component: SelectStatus
+      name: 'HelloWorld',
+      component: HelloWorld
     }
   ]
 })

@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "D:\\project\\winsion-project\\weex-project\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_action_scan.png",
+        "source": "D:\\project\\winsion-project\\weex-project\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\ic_action_scan.png"
+    },
+    {
+        "merged": "D:\\project\\winsion-project\\weex-project\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_action_refresh.png",
+        "source": "D:\\project\\winsion-project\\weex-project\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\ic_action_refresh.png"
+    }
+]
