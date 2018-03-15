@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--添加和编辑界面-->
-    <el-dialog :title="status=='add'?'添加用户管理信息':'修改用户管理信息'" v-model="dialogFormVisible" @close="cancel">
+    <el-dialog top="5%" :title="status=='add'?'添加用户管理信息':'修改用户管理信息'" :visible.sync="dialogFormVisible" @close="cancel">
       <el-form :model="form" style="width: 80%;padding-right: 15%;height: 600px;overflow: auto">
         <el-form-item label="所属站点" :label-width="formLabelWidth">
           <el-select v-model="form.areaName" placeholder="请选择">
@@ -126,12 +126,8 @@
       return {
         imageUrl: '',
         formLabelWidth: '120px',
-      };
-    },
-    computed: {
-      dialogFormVisible() {
-        return this.visible
-      },
+        dialogFormVisible: false
+      }
     },
     methods: {
       cancel(){
@@ -206,6 +202,11 @@
       handleAvatarSuccess(res, file) {
         this.form.photoUrl = res.data
       },
+    },
+    watch: {
+      visible(newVal) {
+        this.dialogFormVisible = newVal
+      }
     }
   }
 </script>

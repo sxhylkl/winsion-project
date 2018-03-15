@@ -3,9 +3,9 @@
     <div id="button">
       <div class="block">
       <span class="wrapper">
-        <el-button :plain="true" type="info" @click="add">添加</el-button>
-        <el-button :plain="true" type="info" @click="edit">修改</el-button>
-        <el-button :plain="true" type="info" @click="handleDelete">删除</el-button>
+        <el-button size="small" :plain="true" type="info" @click="add">添加</el-button>
+        <el-button size="small" :plain="true" type="info" @click="edit">修改</el-button>
+        <el-button size="small" :plain="true" type="info" @click="handleDelete">删除</el-button>
       </span>
       </div>
     </div>

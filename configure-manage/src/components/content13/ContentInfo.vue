@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--添加和编辑界面-->
-    <el-dialog :title="'修改站台到发信息'" v-model="dialogFormVisible" @close="cancel" top="25%">
+    <el-dialog :title="'修改站台到发信息'" :visible.sync="dialogFormVisible" @close="cancel">
       <el-form :model="form" style="width: 80%;">
         <el-form-item label="计划到达时间" :label-width="formLabelWidth">
           <el-date-picker
@@ -56,12 +56,8 @@
     data() {
       return {
         formLabelWidth: '120px',
+        dialogFormVisible: false
       };
-    },
-    computed: {
-      dialogFormVisible() {
-        return this.visible
-      }
     },
     methods: {
       cancel(){
@@ -78,6 +74,11 @@
         }
         //确认修改
         this.$store.dispatch(types.CONTENT13_CONFIRM_EDIT_INFO_ACTION, {data: this.form, _this: this})
+      }
+    },
+    watch: {
+      visible(newVal) {
+        this.dialogFormVisible = newVal
       }
     }
   }

@@ -3,37 +3,37 @@
     <!--表格-->
     <el-table :data="tableData" border style="width: 100%" height="680">
       <el-table-column label="开始时间" width="200" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{ scope.row.startDate }}</span>
         </template>
       </el-table-column>
       <el-table-column label="结束时间" width="200" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{ scope.row.endDate }}</span>
         </template>
       </el-table-column>
       <el-table-column label="规则名称" width="320" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{ scope.row.ruleName }}</span>
         </template>
       </el-table-column>
       <el-table-column label="规则类型" width="200" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{ scope.row.ruleType }}</span>
         </template>
       </el-table-column>
       <el-table-column label="区域名称" width="320" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{ scope.row.areaName }}</span>
         </template>
       </el-table-column>
       <el-table-column label="状态" width="150" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{ scope.row.used=='1'?'生效':'未生效' }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <el-button size="small" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button size="small" type="danger" @click="handleDelete(scope.row)">删除</el-button>
           <el-button :disabled="scope.row.used=='1'" size="small" type="warning" @click="handleExecute(scope.row)">生效</el-button>

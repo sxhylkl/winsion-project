@@ -3,27 +3,27 @@
     <!--表格-->
     <el-table :data="tableData" border style="width: 100%" height="680">
       <el-table-column label="问题类型名称" width="400" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{ scope.row.typeName }}</span>
         </template>
       </el-table-column>
       <el-table-column label="预计耗时" width="300" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{ scope.row.planCostTime }}</span>
         </template>
       </el-table-column>
       <el-table-column label="大类名称" width="400" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{ scope.row.classificationName }}</span>
         </template>
       </el-table-column>
       <el-table-column label="优先级" width="200" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{ scope.row.priority }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <el-button size="small" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button size="small" type="danger" @click="handleDelete(scope.row)">删除</el-button>
         </template>

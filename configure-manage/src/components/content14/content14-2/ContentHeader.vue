@@ -4,7 +4,7 @@
       <h3>基础规则任务列表</h3>
     </div>
     <div style="text-align: right;padding-right: 30px">
-      <el-button type="primary" @click="add">添加</el-button>
+      <el-button size="small" type="primary" @click="add">添加</el-button>
     </div>
   </div>
 </template>

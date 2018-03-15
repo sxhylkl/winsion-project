@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--添加和编辑界面-->
-    <el-dialog :title="status=='add'?'添加信息':'修改信息'" v-model="dialogFormVisible" @close="cancel">
+    <el-dialog :title="status=='add'?'添加信息':'修改信息'" :visible.sync="dialogFormVisible" @close="cancel">
       <el-form :model="form" style="width: 80%">
         <el-form-item label="名称" :label-width="formLabelWidth">
           <el-input v-model="form.trainTaskTypeName" auto-complete="off"></el-input>
@@ -25,11 +25,6 @@
         formLabelWidth: '120px',
       };
     },
-    computed: {
-      dialogFormVisible() {
-        return this.visible
-      }
-    },
     methods: {
       cancel(){
         this.$store.dispatch(types.CONTENT14_3_CONFIRM_CANCEL_INFO_ACTION)
@@ -46,6 +41,11 @@
         } else {
           this.$store.dispatch(types.CONTENT14_3_CONFIRM_EDIT_INFO_ACTION, {data: this.form, _this: this})
         }
+      }
+    },
+    watch: {
+      visible(newVal) {
+        this.dialogFormVisible = newVal
       }
     }
   }

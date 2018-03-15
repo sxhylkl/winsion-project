@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--添加和编辑界面-->
-    <el-dialog :title="status=='add'?'添加作业组信息':'修改作业组信息'" v-model="dialogFormVisible" @close="cancel">
+    <el-dialog top="5%" :title="status=='add'?'添加作业组信息':'修改作业组信息'" :visible.sync="dialogFormVisible" @close="cancel">
       <el-form :model="form" style="width: 80%">
         <el-form-item label="职能组" :label-width="formLabelWidth">
           <el-select v-model="form.postName" placeholder="请选择">
@@ -65,12 +65,8 @@
     data() {
       return {
         formLabelWidth: '120px',
+        dialogFormVisible: false
       };
-    },
-    computed: {
-      dialogFormVisible() {
-        return this.visible
-      }
     },
     methods: {
       cancel(){
@@ -104,6 +100,11 @@
         } else {
           this.$store.dispatch(types.CONTENT8_CONFIRM_EDIT_INFO_ACTION, {data: this.form, _this: this})
         }
+      }
+    },
+    watch: {
+      visible(newVal) {
+        this.dialogFormVisible = newVal
       }
     }
   }

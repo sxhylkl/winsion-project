@@ -3,22 +3,22 @@
     <!--表格-->
     <el-table :data="tableData" border style="width: 100%" height="680">
       <el-table-column label="巡检点名称" width="300" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{ scope.row.pointName }}</span>
         </template>
       </el-table-column>
       <el-table-column label="蓝牙ID" width="300" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{ scope.row.blueToothId }}</span>
         </template>
       </el-table-column>
       <el-table-column label="区域名称" width="500" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{ scope.row.areaName }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <el-button size="small" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button size="small" type="danger" @click="handleDelete(scope.row)">删除</el-button>
         </template>

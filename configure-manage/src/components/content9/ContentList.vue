@@ -3,9 +3,9 @@
     <div id="button">
       <div class="block">
       <span class="wrapper">
-        <el-button :plain="true" type="info" @click="add">添加</el-button>
-        <el-button :plain="true" type="info" @click="edit">修改</el-button>
-        <el-button :plain="true" type="info" @click="handleDelete">删除</el-button>
+        <el-button size="small" :plain="true" type="info" @click="add">添加</el-button>
+        <el-button size="small" :plain="true" type="info" @click="edit">修改</el-button>
+        <el-button size="small" :plain="true" type="info" @click="handleDelete">删除</el-button>
       </span>
       </div>
     </div>
@@ -37,8 +37,9 @@
               <div class="current-info"><span class="current-info-space">车站级：</span>
                 <el-switch
                   v-model="value"
-                  on-color="#13ce66"
-                  off-color="#ff4949">
+                  :disabled="true"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949">
                 </el-switch>
               </div>
             </div>
@@ -62,13 +63,11 @@
           children: 'list',
           label: 'name'
         },
-        currentRow: null
+        currentRow: null,
+        value: false
       };
     },
     computed: {
-      value(){
-        return this.currentRow && this.currentRow.data.countFlag == '1'
-      },
       currentData(){
         return this.currentRow ? this.currentRow.data : {typeName: '', areaName: '', number: '', ssId: ''}
       }
@@ -115,6 +114,15 @@
           })
         }).catch(()=> {
         })
+      }
+    },
+    watch: {
+      currentRow(newVal) {
+        if (newVal && newVal.data.countFlag === '1') {
+          this.value = true
+          return
+        }
+        this.value = false
       }
     }
   }

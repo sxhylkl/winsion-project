@@ -120,12 +120,12 @@ const actions = {
       }
     })
   },
-  [types.CONTENT9_TABLE_CONFIRM_EDIT_INFO_ACTION]({commit, dispatch}, {data, _this}){
+  [types.CONTENT9_TABLE_CONFIRM_EDIT_INFO_ACTION]({commit, dispatch, state}, {data, _this}){
     //发送请求
     const reqData = {
       "id":data.areaTypeId,
       "typeName":data.typeName,
-      "cut": data.purposeName,
+      "cut": data.purposeName === state.tableBackupForm.purposeName ? state.tableBackupForm.purposeId : data.purposeName,
       "typeNo":"1"
     }
     const dataList = {
@@ -193,7 +193,7 @@ const actions = {
       }
     })
   },
-  [types.CONTENT9_LIST_CONFIRM_EDIT_INFO_ACTION]({commit, dispatch,state}, {data, _this}){
+  [types.CONTENT9_LIST_CONFIRM_EDIT_INFO_ACTION]({commit, dispatch, state}, {data, _this}){
     //发送请求
     const reqData = {
       "id":data.areaId,

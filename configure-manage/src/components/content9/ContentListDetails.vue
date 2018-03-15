@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--添加和编辑界面-->
-    <el-dialog v-model="dialogFormVisible" :title="listStatus=='add'?'添加区域管理':'修改区域管理'" @close="cancel">
+    <el-dialog :visible.sync="dialogFormVisible" :title="listStatus=='add'?'添加区域管理':'修改区域管理'" @close="cancel">
       <el-form :model="listForm" style="width: 80%">
         <el-form-item label="上级节点" :label-width="formLabelWidth">
           <el-input v-model="listForm.parentName" auto-complete="off" :disabled="true"></el-input>
@@ -28,8 +28,8 @@
         <el-form-item label="车站级" :label-width="formLabelWidth">
           <el-switch
             v-model="value"
-            on-color="#13ce66"
-            off-color="#ff4949">
+            active-color="#13ce66"
+            inactive-color="#ff4949">
           </el-switch>
         </el-form-item>
       </el-form>
@@ -49,13 +49,9 @@
     data() {
       return {
         formLabelWidth: '120px',
-        value: this.listForm.countFlag == '1'
+        value: this.listForm.countFlag == '1',
+        dialogFormVisible: false
       };
-    },
-    computed: {
-      dialogFormVisible() {
-        return this.listShow
-      }
     },
     methods: {
       cancel(){
@@ -95,6 +91,11 @@
             _this: this
           })
         }
+      }
+    },
+    watch: {
+      listShow(newVal) {
+        this.dialogFormVisible = newVal
       }
     }
   };

@@ -22,8 +22,8 @@
           :value="groupData.postId">
         </el-option>
       </el-select>
-      <el-button type="primary" @click="search">查询</el-button>
-      <el-button type="primary" @click="add">添加</el-button>
+      <el-button size="small" type="primary" @click="search">查询</el-button>
+      <el-button size="small" type="primary" @click="add">添加</el-button>
     </div>
   </div>
 </template>

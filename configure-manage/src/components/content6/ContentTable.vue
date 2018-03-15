@@ -3,17 +3,17 @@
     <!--表格-->
     <el-table :data="tableData" border style="width: 100%" height="680">
       <el-table-column label="部门名称" width="600" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{ scope.row.orgName }}</span>
         </template>
       </el-table-column>
       <el-table-column label="优先级" width="600" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{ scope.row.sort }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <el-button size="small" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button size="small" type="danger" @click="handleDelete(scope.row)">删除</el-button>
         </template>

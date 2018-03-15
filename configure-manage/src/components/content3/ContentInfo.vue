@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--添加和编辑界面-->
-    <el-dialog :title="status=='add'?'添加巡检项信息':'修改巡检项信息'" v-model="dialogFormVisible" @close="cancel">
+    <el-dialog :title="status=='add'?'添加巡检项信息':'修改巡检项信息'" :visible.sync="dialogFormVisible" @close="cancel">
       <el-form :model="form" style="width: 80%">
         <el-form-item label="巡检项名称名称" :label-width="formLabelWidth">
           <el-input v-model="form.itemdescribe" auto-complete="off"></el-input>
@@ -23,12 +23,8 @@
     data() {
       return {
         formLabelWidth: '120px',
+        dialogFormVisible: false
       };
-    },
-    computed: {
-      dialogFormVisible() {
-        return this.visible
-      }
     },
     methods: {
       cancel(){
@@ -46,6 +42,11 @@
         } else {
           this.$store.dispatch(types.CONTENT3_CONFIRM_EDIT_INFO_ACTION, {data: this.form, _this: this})
         }
+      }
+    },
+    watch: {
+      visible(newVal) {
+        this.dialogFormVisible = newVal
       }
     }
   }

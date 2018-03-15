@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--添加和编辑界面-->
-    <el-dialog :title="status=='add'?'添加排班':'修改排班'" top="5%" size="large" v-model="dialogFormVisible" @close="cancel">
+    <el-dialog :title="status=='add'?'添加排班':'修改排班'" top="2%" width="80%" :visible.sync="dialogFormVisible" @close="cancel">
       <div class="dialog-group-style">
         <h4>排班计划</h4>
         <el-form :inline="true" :model="schedulingPlan">
@@ -91,37 +91,37 @@
 
         <el-table :data="schedulingSpecificList" border style="width: 100%" height="260">
           <el-table-column label="班组名称" width="200" align="center">
-            <template scope="scope">
+            <template slot-scope="scope">
               <span>{{ scope.row.name }}</span>
             </template>
           </el-table-column>
           <el-table-column label="班次" width="200" align="center">
-            <template scope="scope">
+            <template slot-scope="scope">
               <span>{{ scope.row.teamname }}</span>
             </template>
           </el-table-column>
           <el-table-column label="上班日期" width="200" align="center">
-            <template scope="scope">
+            <template slot-scope="scope">
               <span>{{ scope.row.startdays }}</span>
             </template>
           </el-table-column>
           <el-table-column label="上班时间" width="200" align="center">
-            <template scope="scope">
+            <template slot-scope="scope">
               <span>{{ scope.row.starttime }}</span>
             </template>
           </el-table-column>
           <el-table-column label="下班日期" width="200" align="center">
-            <template scope="scope">
+            <template slot-scope="scope">
               <span>{{ scope.row.enddays }}</span>
             </template>
           </el-table-column>
           <el-table-column label="下班时间" width="200" align="center">
-            <template scope="scope">
+            <template slot-scope="scope">
               <span>{{ scope.row.endtime }}</span>
             </template>
           </el-table-column>
           <el-table-column label="操作" align="center">
-            <template scope="scope">
+            <template slot-scope="scope">
               <el-button size="small" type="danger" @click="deleteRow(scope.$index)">删除</el-button>
             </template>
           </el-table-column>
@@ -143,13 +143,9 @@
     data() {
       return {
         formLabelWidth: '120px',
-        executeStatus:'未执行'
+        executeStatus:'未执行',
+        dialogFormVisible: false
       };
-    },
-    computed: {
-      dialogFormVisible() {
-        return this.visible
-      }
     },
     methods: {
       cancel(){
@@ -212,6 +208,11 @@
       deleteRow(index){
         //刪除数据
         this.$store.commit(types.CONTENT12_CONFIRM_DELETE_SPECIFIC_WAY,index)
+      }
+    },
+    watch: {
+      visible(newVal) {
+        this.dialogFormVisible = newVal
       }
     }
   }

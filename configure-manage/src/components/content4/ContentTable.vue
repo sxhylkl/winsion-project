@@ -3,17 +3,17 @@
     <!--表格-->
     <el-table :data="tableData" border style="width: 100%" height="680">
       <el-table-column label="编号" width="200" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{ scope.row.classificationNo }}</span>
         </template>
       </el-table-column>
       <el-table-column label="大类名称" width="300" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{ scope.row.classificationName }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <el-button size="small" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button size="small" type="danger" @click="handleDelete(scope.row)">删除</el-button>
         </template>

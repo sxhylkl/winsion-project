@@ -1,6 +1,13 @@
 <template>
   <div>
-    <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" :router="true">
+    <el-menu
+             background-color="#324157"
+             text-color="#fff"
+             active-text-color="#409EFF"
+             :default-active="activeIndex"
+             class="el-menu-demo"
+             mode="horizontal"
+             :router="true">
       <el-menu-item index="content1">设备管理</el-menu-item>
       <el-menu-item index="content2">巡检点</el-menu-item>
       <el-menu-item index="content3">巡检项</el-menu-item>

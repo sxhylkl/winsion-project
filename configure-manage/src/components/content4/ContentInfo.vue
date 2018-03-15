@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--添加和编辑界面-->
-    <el-dialog :title="status=='add'?'添加问题大类信息':'修改问题大类信息'" v-model="dialogFormVisible" @close="cancel">
+    <el-dialog :title="status=='add'?'添加问题大类信息':'修改问题大类信息'" :visible.sync="dialogFormVisible" @close="cancel">
       <el-form :model="form" style="width: 80%">
         <el-form-item label="编号" :label-width="formLabelWidth">
           <el-input v-model="form.classificationNo" auto-complete="off"></el-input>
@@ -11,8 +11,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="cancel">取 消</el-button>
-        <el-button type="primary" @click="confirm">确 定</el-button>
+        <el-button size="small" @click="cancel">取 消</el-button>
+        <el-button size="small" type="primary" @click="confirm">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -26,12 +26,8 @@
     data() {
       return {
         formLabelWidth: '120px',
+        dialogFormVisible: false
       };
-    },
-    computed: {
-      dialogFormVisible() {
-        return this.visible
-      }
     },
     methods: {
       cancel(){
@@ -52,6 +48,11 @@
         } else {
           this.$store.dispatch(types.CONTENT4_CONFIRM_EDIT_INFO_ACTION, {data: this.form, _this: this})
         }
+      }
+    },
+    watch: {
+      visible(newVal) {
+        this.dialogFormVisible = newVal
       }
     }
   }

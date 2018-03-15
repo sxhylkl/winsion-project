@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--添加和编辑界面-->
-    <el-dialog :title="status=='add'?'添加部门管理信息':'修改部门管理信息'" v-model="dialogFormVisible" @close="cancel">
+    <el-dialog :title="status=='add'?'添加部门管理信息':'修改部门管理信息'" :visible.sync="dialogFormVisible" @close="cancel">
       <el-form :model="form" style="width: 80%">
         <el-form-item label="部门名称" :label-width="formLabelWidth">
           <el-input v-model="form.orgName" auto-complete="off"></el-input>
@@ -37,12 +37,8 @@
     data() {
       return {
         formLabelWidth: '120px',
+        dialogFormVisible: false
       };
-    },
-    computed: {
-      dialogFormVisible() {
-        return this.visible
-      }
     },
     methods: {
       cancel(){
@@ -63,6 +59,11 @@
         } else {
           this.$store.dispatch(types.CONTENT6_CONFIRM_EDIT_INFO_ACTION, {data: this.form, _this: this})
         }
+      }
+    },
+    watch: {
+      visible(newVal) {
+        this.dialogFormVisible = newVal
       }
     }
   }

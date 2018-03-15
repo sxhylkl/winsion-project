@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--添加和编辑界面-->
-    <el-dialog v-model="dialogFormVisible" :title="tableStatus=='add'?'添加区域类型':'修改区域类型'" @close="cancel">
+    <el-dialog :visible.sync="dialogFormVisible" :title="tableStatus=='add'?'添加区域类型':'修改区域类型'" @close="cancel">
       <el-form :model="tableForm" style="width: 80%">
         <el-form-item label="区域类型" :label-width="formLabelWidth">
           <el-input v-model="tableForm.typeName" auto-complete="off"></el-input>
@@ -32,13 +32,9 @@
     props:['tableSelectData','tableStatus','tableShow','tableForm'],
     data() {
       return {
-        formLabelWidth: '120px'
+        formLabelWidth: '120px',
+        dialogFormVisible: false
       };
-    },
-    computed: {
-      dialogFormVisible() {
-        return this.tableShow
-      }
     },
     methods:{
       cancel(){
@@ -61,6 +57,11 @@
           this.$store.dispatch(types.CONTENT9_TABLE_CONFIRM_EDIT_INFO_ACTION, {data: this.tableForm, _this: this})
         }
 
+      }
+    },
+    watch: {
+      tableShow(newVal) {
+        this.dialogFormVisible = newVal
       }
     }
   };
