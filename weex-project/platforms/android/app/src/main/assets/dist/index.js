@@ -2618,6 +2618,9 @@ module.exports = __vue_exports__
 /***/ (function(module, exports) {
 
 module.exports = {
+  "font-size-small-s": {
+    "fontSize": "28"
+  },
   "font-size-small": {
     "fontSize": "32"
   },
@@ -2627,6 +2630,44 @@ module.exports = {
     "top": 0,
     "right": 0,
     "bottom": 0
+  },
+  "top-service": {
+    "marginTop": "10",
+    "marginLeft": "10",
+    "marginRight": "10",
+    "paddingLeft": "20",
+    "paddingRight": "20",
+    "backgroundColor": "#f1f1f1"
+  },
+  "title": {
+    "flexDirection": "row",
+    "alignItems": "center",
+    "height": "70",
+    "borderBottomWidth": "1",
+    "borderBottomStyle": "dashed"
+  },
+  "title-icon": {
+    "paddingRight": "5",
+    "paddingLeft": "5",
+    "paddingTop": "3",
+    "paddingBottom": "3",
+    "borderWidth": "1",
+    "borderColor": "#306ab4",
+    "borderRadius": "10",
+    "color": "#306ab4"
+  },
+  "title-icon-desc": {
+    "marginLeft": "10",
+    "color": "#306ab4"
+  },
+  "desc": {
+    "marginTop": "30",
+    "marginBottom": "20"
+  },
+  "select": {
+    "marginTop": "20",
+    "marginBottom": "20",
+    "alignItems": "center"
   },
   "bottom": {
     "position": "absolute",
@@ -2639,7 +2680,7 @@ module.exports = {
     "paddingRight": "25",
     "paddingTop": "15",
     "paddingBottom": "15",
-    "marginBottom": "100",
+    "marginBottom": "30",
     "flexDirection": "row",
     "justifyContent": "space-between",
     "backgroundColor": "#f1f1f1"
@@ -2683,6 +2724,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
     data: function data() {
         return {
+            serviceData: [{
+                title: '送',
+                desc: '要去火车站，希望从车站周边送我上火车！'
+            }, {
+                title: '接',
+                desc: '下火车时，希望从车厢接我出火车站！'
+            }],
+            serviceText: '创建订单 >>',
+            serviceBtnStyle: {
+                backgroundColor: '#306ab4',
+                width: '240px',
+                height: '80px'
+            },
             text: '我的订单列表',
             btnStyle: {
                 backgroundColor: '#306ab4'
@@ -2697,6 +2751,17 @@ exports.default = {
         }
     }
 }; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2953,11 +3018,34 @@ module.exports.render._withStripped = true
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: ["wrapper"]
-  }, [_vm._m(0), _c('div', {
+  }, [_c('div', {
+    staticClass: ["top"]
+  }, _vm._l((_vm.serviceData), function(item) {
+    return _c('div', {
+      staticClass: ["top-service"]
+    }, [_c('div', {
+      staticClass: ["title"]
+    }, [_c('text', {
+      staticClass: ["title-icon", "font-size-small-s"]
+    }, [_vm._v(_vm._s(item.title))]), _c('text', {
+      staticClass: ["title-icon-desc", "font-size-small-s"]
+    }, [_vm._v(_vm._s(item.title) + "站服务")])]), _c('div', {
+      staticClass: ["desc"]
+    }, [_c('text', {
+      staticClass: ["font-size-small"]
+    }, [_vm._v(_vm._s(item.desc))])]), _c('div', {
+      staticClass: ["select"]
+    }, [_c('wxc-button', {
+      attrs: {
+        "text": _vm.serviceText,
+        "btnStyle": _vm.serviceBtnStyle
+      }
+    })], 1)])
+  })), _c('div', {
     staticClass: ["bottom"]
   }, [_c('div', {
     staticClass: ["bottom-preferential"]
-  }, [_vm._m(1), _c('div', {
+  }, [_vm._m(0), _c('div', {
     staticClass: ["bottom-preferential-right"]
   }, [_c('image', {
     staticClass: ["preferential-image"],
@@ -2973,12 +3061,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: ["top"]
-  }, [_c('text', {
-    staticClass: ["font-size-middle-s"]
-  }, [_vm._v("123")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: ["bottom-preferential-left"]
   }, [_c('text', {

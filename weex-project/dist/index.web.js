@@ -22250,7 +22250,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* 共同遵守的样式 */\n.font-size-small{\n    font-size: 0.42667rem;\n}\n/* -------------- */\n.wrapper{\n    position: absolute;\n    left: 0;\n    top: 0;\n    right: 0;\n    bottom: 0;\n}\n.bottom{\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    right: 0;\n}\n.bottom-preferential{\n    padding-left: 0.33333rem;\n    padding-right: 0.33333rem;\n    padding-top: 0.2rem;\n    padding-bottom: 0.2rem;\n    margin-bottom: 1.33333rem;\n    flex-direction: row;\n    justify-content: space-between;\n    background-color: #f1f1f1;\n}\n.bottom-preferential-left{\n    height: 1.86667rem;\n    justify-content: space-around;\n}\n.preferential{\n    color: #13BCF2;\n}\n.preferential-image{\n    width: 1.86667rem;\n    height: 1.86667rem;\n}\n.bottom-confirm{\n    align-items: center;\n    padding-top: 0.2rem;\n    padding-bottom: 0.2rem;\n    background-color: #f1f1f1;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* 共同遵守的样式 */\n.font-size-small-s{\n    font-size: 0.37333rem;\n}\n.font-size-small{\n    font-size: 0.42667rem;\n}\n/* -------------- */\n.wrapper{\n    position: absolute;\n    left: 0;\n    top: 0;\n    right: 0;\n    bottom: 0;\n}\n.top-service{\n    margin-top: 0.13333rem;\n    margin-left: 0.13333rem;\n    margin-right: 0.13333rem;\n    padding-left: 0.26667rem;\n    padding-right: 0.26667rem;\n    background-color: #f1f1f1;\n}\n.title{\n    flex-direction: row;\n    align-items: center;\n    height: 0.93333rem;\n    border-bottom-width: 1px;\n    border-bottom-style: dashed;\n}\n.title-icon{\n    padding-right: 0.06667rem;\n    padding-left: 0.06667rem;\n    padding-top: 0.04rem;\n    padding-bottom: 0.04rem;\n    border-width: 1px;\n    border-color: #306ab4;\n    border-radius: 0.13333rem;\n    color: #306ab4;\n}\n.title-icon-desc{\n    margin-left: 0.13333rem;\n    color: #306ab4;\n}\n.desc{\n    margin-top: 0.4rem;\n    margin-bottom: 0.26667rem;\n}\n.select{\n    margin-top: 0.26667rem;\n    margin-bottom: 0.26667rem;\n    align-items: center;\n}\n.bottom{\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    right: 0;\n}\n.bottom-preferential{\n    padding-left: 0.33333rem;\n    padding-right: 0.33333rem;\n    padding-top: 0.2rem;\n    padding-bottom: 0.2rem;\n    margin-bottom: 0.4rem;\n    flex-direction: row;\n    justify-content: space-between;\n    background-color: #f1f1f1;\n}\n.bottom-preferential-left{\n    height: 1.86667rem;\n    justify-content: space-around;\n}\n.preferential{\n    color: #13BCF2;\n}\n.preferential-image{\n    width: 1.86667rem;\n    height: 1.86667rem;\n}\n.bottom-confirm{\n    align-items: center;\n    padding-top: 0.2rem;\n    padding-bottom: 0.2rem;\n    background-color: #f1f1f1;\n}\n", ""]);
 
 // exports
 
@@ -22308,6 +22308,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
     data: function data() {
         return {
+            serviceData: [{
+                title: '送',
+                desc: '要去火车站，希望从车站周边送我上火车！'
+            }, {
+                title: '接',
+                desc: '下火车时，希望从车厢接我出火车站！'
+            }],
+            serviceText: '创建订单 >>',
+            serviceBtnStyle: {
+                backgroundColor: '#306ab4',
+                width: '240px',
+                height: '80px'
+            },
             text: '我的订单列表',
             btnStyle: {
                 backgroundColor: '#306ab4'
@@ -22322,6 +22335,17 @@ exports.default = {
         }
     }
 }; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -22621,12 +22645,49 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "weex-type": "div"
     }
-  }, [_c('p', {
-    staticClass: "font-size-middle-s weex-el weex-text",
-    attrs: {
-      "weex-type": "text"
-    }
-  }, [_vm._v("123")])]), _vm._v(" "), _c('div', {
+  }, _vm._l((_vm.serviceData), function(item) {
+    return _c('div', {
+      staticClass: "top-service weex-ct weex-div",
+      attrs: {
+        "weex-type": "div"
+      }
+    }, [_c('div', {
+      staticClass: "title weex-ct weex-div",
+      attrs: {
+        "weex-type": "div"
+      }
+    }, [_c('p', {
+      staticClass: "title-icon font-size-small-s weex-el weex-text",
+      attrs: {
+        "weex-type": "text"
+      }
+    }, [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c('p', {
+      staticClass: "title-icon-desc font-size-small-s weex-el weex-text",
+      attrs: {
+        "weex-type": "text"
+      }
+    }, [_vm._v(_vm._s(item.title) + "站服务")])]), _vm._v(" "), _c('div', {
+      staticClass: "desc weex-ct weex-div",
+      attrs: {
+        "weex-type": "div"
+      }
+    }, [_c('p', {
+      staticClass: "font-size-small weex-el weex-text",
+      attrs: {
+        "weex-type": "text"
+      }
+    }, [_vm._v(_vm._s(item.desc))])]), _vm._v(" "), _c('div', {
+      staticClass: "select weex-ct weex-div",
+      attrs: {
+        "weex-type": "div"
+      }
+    }, [_c('wxc-button', {
+      attrs: {
+        "text": _vm.serviceText,
+        "btn-style": _vm.serviceBtnStyle
+      }
+    })], 1)])
+  })), _vm._v(" "), _c('div', {
     staticClass: "bottom weex-ct weex-div",
     attrs: {
       "weex-type": "div"
