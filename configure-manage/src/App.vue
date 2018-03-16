@@ -21,18 +21,15 @@
     margin: 0;
     padding: 0;
   }
-  .el-table th {
-    background-color: #eef1f6;
-    line-height: 35px;
-  }
   .el-table tr {
     color: #000;
     font-size: 14px;
   }
-  .el-table--border th {
-    border: 1px solid #dfe6ec;
+  .el-table th {
+    background-color: #eef1f6;
+    line-height: 35px;
   }
-  .el-table--border td{
+  .el-table--border th,.el-table--border td,.el-table th.is-leaf {
     border: 1px solid #dfe6ec;
   }
 </style>
