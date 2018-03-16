@@ -31,7 +31,7 @@
     <order-detail-part></order-detail-part>
     <!--费用须知-->
     <div class="attach margin-bottom">
-      <div>费用需知 <div id="fold" @click="show=!show"><i :class="[show?'el-icon-caret-bottom':'el-icon-caret-top']"></i></div></div>
+      <div>费用需知 <div id="fold" @click="show=!show"><i :class="[show?'el-icon-caret-top':'el-icon-caret-bottom']"></i></div></div>
       <transition name="fade">
         <ol v-if="show">
           <li>补缴费用:<br>如果您变更接站的服务终点或送站的服务起点，可能会导致加收距离费用；<br>如果您的同行人数、行李数量规格等与订单不符，您需补缴相关费用；</li>
