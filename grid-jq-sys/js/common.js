@@ -1,5 +1,6 @@
 //var dataUrl = 'http://10.0.0.2:8080'
-var dataUrl = 'http://172.16.6.100:9411'
+//var dataUrl = 'http://172.16.6.100:9411'
+var dataUrl = 'http://172.16.200.20:9411'
 
 //判断是否有用户登录，若登录，获取职能组信息，问题大类，区域
 isLogin() && getAndSetList()
