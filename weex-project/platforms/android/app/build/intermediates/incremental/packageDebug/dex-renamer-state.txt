@@ -1,4 +1,4 @@
-#Thu Mar 15 23:22:27 CST 2018
-base.0=D\:\\project-manage\\winsion-project\\weex-project\\platforms\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
+#Fri Mar 16 09:02:59 CST 2018
+base.0=D\:\\project\\winsion-project\\weex-project\\platforms\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
 renamed.0=classes.dex
-file.0=D\:\\project-manage\\winsion-project\\weex-project\\platforms\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
+file.0=D\:\\project\\winsion-project\\weex-project\\platforms\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

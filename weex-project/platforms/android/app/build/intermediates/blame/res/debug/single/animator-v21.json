@@ -2,5 +2,9 @@
     {
         "merged": "D:\\project-manage\\winsion-project\\weex-project\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\animator-v21\\design_appbar_state_list_animator.xml",
         "source": "D:\\project-manage\\winsion-project\\weex-project\\platforms\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\26.1.0\\res\\animator-v21\\design_appbar_state_list_animator.xml"
+    },
+    {
+        "merged": "D:\\project\\winsion-project\\weex-project\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\animator-v21\\design_appbar_state_list_animator.xml",
+        "source": "D:\\project\\winsion-project\\weex-project\\platforms\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\26.1.0\\res\\animator-v21\\design_appbar_state_list_animator.xml"
     }
 ]

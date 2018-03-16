@@ -22192,7 +22192,7 @@ var Component = __webpack_require__(4)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "D:\\project-manage\\winsion-project\\weex-project\\src\\components\\select-status.vue"
+Component.options.__file = "D:\\project\\winsion-project\\weex-project\\src\\components\\select-status.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] select-status.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -22387,7 +22387,7 @@ var Component = __webpack_require__(4)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "D:\\project-manage\\winsion-project\\weex-project\\node_modules\\weex-ui\\packages\\wxc-button\\index.vue"
+Component.options.__file = "D:\\project\\winsion-project\\weex-project\\node_modules\\weex-ui\\packages\\wxc-button\\index.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] index.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -22704,7 +22704,7 @@ var Component = __webpack_require__(4)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "D:\\project-manage\\winsion-project\\weex-project\\src\\index.vue"
+Component.options.__file = "D:\\project\\winsion-project\\weex-project\\src\\index.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] index.vue: functional components are not supported with templates, they should use render functions.")}
 
