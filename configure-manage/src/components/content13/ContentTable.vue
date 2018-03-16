@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--表格-->
-    <el-table :data="tableData" border style="width: 100%" height="680">
+    <el-table :data="tableData" border style="width: 100%" height="680" size="mini">
       <el-table-column label="日期" width="120" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.runDate.split(' ')[0] }}</span>

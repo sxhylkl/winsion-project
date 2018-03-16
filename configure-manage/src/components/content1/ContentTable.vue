@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--表格-->
-    <el-table :data="tableData" border style="width: 100%" height="680" :header-row-style="headerRowStyle" highlight-current-row>
+    <el-table :data="tableData" border style="width: 100%" height="680" size="mini">
       <el-table-column label="设备编号" width="200" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.deviceNo }}</span>
@@ -27,7 +27,7 @@
           <span>{{ scope.row.teamName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center">
+      <el-table-column label="操作" align="center" min-width="200" fixed="right">
         <template slot-scope="scope">
           <el-button size="small" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button size="small" type="danger" @click="handleDelete(scope.row)">删除</el-button>
@@ -41,13 +41,6 @@
   import * as types from '../../store/mutation-types'
   export default {
     props:['tableData'],
-    data() {
-      return {
-        headerRowStyle: {
-          color: '#000'
-        }
-      }
-    },
     methods: {
       handleEdit(data) {
         this.$store.dispatch(types.CONTENT1_EDIT_INFO_ACTION,data)

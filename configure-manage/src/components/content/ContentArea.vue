@@ -43,7 +43,7 @@
   export default {
     data() {
       return {
-        activeIndex: window.location.href.split('/#/')[1]==''?'content1':window.location.href.split('/#/')[1].split('/')[0]
+        activeIndex: window.location.href.split('#/')[1]==''?'content1':window.location.href.split('/#/')[1].split('/')[0]
       };
     }
   }

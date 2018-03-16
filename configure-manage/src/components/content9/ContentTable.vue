@@ -20,8 +20,9 @@
           border
           highlight-current-row
           @current-change="handleCurrentChange"
-          style="width: 100%">
+          style="width: 100%" size="mini">
           <el-table-column
+            fixed="right" min-width="180"
             prop="typeName"
             label="类型名称"
             width="300"

@@ -1,13 +1,13 @@
 <template>
   <div>
     <!--表格-->
-    <el-table :data="tableData" border style="width: 100%" height="680">
+    <el-table :data="tableData" border style="width: 100%" height="680" size="mini">
       <el-table-column label="名称" width="600" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.trainTaskTypeName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center">
+      <el-table-column label="操作" align="center" fixed="right" min-width="200">
         <template slot-scope="scope">
           <el-button size="small" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button size="small" type="danger" @click="handleDelete(scope.row)">删除</el-button>
