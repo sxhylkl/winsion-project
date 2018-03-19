@@ -1,5 +1,8 @@
 <template>
     <div class="wrapper">
+        <div class="bar">
+            <minibar></minibar>
+        </div>
         <div class="top">
             <div class="top-service" v-for="item in serviceData">
                 <div class="title">
@@ -10,29 +13,31 @@
                     <text class="font-size-small">{{item.desc}}</text>
                 </div>
                 <div class="select">
-                    <wxc-button :text="serviceText" :btn-style="serviceBtnStyle"></wxc-button>
+                    <wxc-button :text="serviceText" :btn-style="serviceBtnStyle" @wxcButtonClicked="createOrder"></wxc-button>
                 </div>
             </div>
         </div>
         <div class="bottom">
             <div class="bottom-preferential">
                 <div class="bottom-preferential-left">
-                    <text class="preferential font-size-small">我的优惠券</text>
-                    <text class="preferential-desc font-size-small">超值优惠券，多用多送，尽享出行</text>
+                    <text class="preferential font-size-small">{{privilegeTitle}}</text>
+                    <text class="preferential-desc font-size-small">{{privilegeDesc}}</text>
                 </div>
                 <div class="bottom-preferential-right">
                     <image class="preferential-image" :src="privilegeUrl"></image>
                 </div>
             </div>
             <div class="bottom-confirm">
-                <wxc-button :text="text" :btn-style="btnStyle"></wxc-button>
+                <wxc-button :text="orderText" :btn-style="orderBtnStyle"></wxc-button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import { WxcButton } from 'weex-ui'
+    import Minibar from '@/base/minibar'
+    import { WxcButton, WxcMinibar } from 'weex-ui';
+    const modal = weex.requireModule('modal');
     export default {
         data: () => ({
             serviceData: [
@@ -51,16 +56,18 @@
                 width: '240px',
                 height: '80px'
             },
-            text: '我的订单列表',
-            btnStyle: {
+            privilegeTitle: '我的优惠券',
+            privilegeDesc: '超值优惠券，多用多送，尽享出行',
+            privilegeUrl: 'http://172.16.6.101:3000/image/privilege.png',
+            orderText: '我的订单列表',
+            orderBtnStyle: {
                 backgroundColor: '#306ab4'
-            },
-            privilegeUrl: 'http://172.16.6.101:3000/image/privilege.png'
+            }
         }),
-        components: { WxcButton },
+        components: { WxcButton, WxcMinibar, Minibar },
         methods: {
-            wxcButtonClicked (e) {
-                console.log(e)
+            createOrder () {
+                this.$router.push('selectTrain')
             }
         }
     }
