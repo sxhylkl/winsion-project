@@ -67,7 +67,7 @@
         components: { WxcButton, WxcMinibar, Minibar },
         methods: {
             createOrder () {
-                this.$router.push('selectTrain')
+                this.$router.push('/selectTrain')
             }
         }
     }
