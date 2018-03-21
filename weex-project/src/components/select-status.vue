@@ -28,16 +28,18 @@
                 </div>
             </div>
             <div class="bottom-confirm">
-                <wxc-button :text="orderText" :btn-style="orderBtnStyle"></wxc-button>
+                <wxc-button :text="orderText" :btn-style="orderBtnStyle" @wxcButtonClicked="showDialogDate"></wxc-button>
             </div>
         </div>
+        <dialog-date ref="date"></dialog-date>
     </div>
 </template>
 
 <script>
-    import Minibar from '@/base/minibar'
-    import { WxcButton, WxcMinibar } from 'weex-ui';
     const modal = weex.requireModule('modal');
+    import Minibar from '@/base/minibar'
+    import DialogDate from '@/base/dialog-date'
+    import { WxcButton, WxcMinibar } from 'weex-ui';
     export default {
         data: () => ({
             serviceData: [
@@ -64,10 +66,13 @@
                 backgroundColor: '#306ab4'
             }
         }),
-        components: { WxcButton, WxcMinibar, Minibar },
+        components: { WxcButton, WxcMinibar, Minibar, DialogDate },
         methods: {
             createOrder () {
                 this.$router.push('/selectTrain')
+            },
+            showDialogDate() {
+                this.$refs.date.show()
             }
         }
     }
@@ -159,5 +164,10 @@
         padding-top: 15px;
         padding-bottom: 15px;
         background-color: #f1f1f1;
+    }
+    .date{
+        position: absolute;
+        left: 0;
+
     }
 </style>
