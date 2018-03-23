@@ -23285,7 +23285,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.wrapper {\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0;\n}\n.content{\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0;\n    background-color: #ffffff;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*-----------------------------*/\n.font-size-small-s{\n    font-size: 0.37333rem;\n}\n.font-size-small{\n    font-size: 0.42667rem;\n}\n.font-size-middle-s{\n    font-size: 0.48rem;\n}\n/*-----------------------------*/\n.wrapper {\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0;\n}\n.content{\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0;\n}\n.content-title{\n    height: 1.33333rem;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    background-color: #eee;\n}\n.content-title-cancel,.content-title-confirm{\n    margin-left: 0.26667rem;\n    margin-right: 0.26667rem;\n}\n.content-data{\n    height: 5.33333rem;\n}\n.content-mask-top{\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    height: 2.13333rem;\n    background-image: -webkit-linear-gradient(top,#eee,#fff);\n    background-image: linear-gradient(to bottom,#eee,#fff);\n    opacity: 0.8;\n    border-bottom-width: 1px;\n    border-bottom-color: #ddd;\n}\n.content-mask-bottom{\n    position: absolute;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    height: 2.13333rem;\n    background-image: -webkit-linear-gradient(bottom,#eee,#fff);\n    background-image: linear-gradient(to top,#eee,#fff);\n    opacity: 0.8;\n    border-top-width: 1px;\n    border-top-color: #ddd;\n}\n.content-wheel-wrapper{\n    height: 5.33333rem;\n    padding-right: 0.2rem;\n    padding-left: 0.2rem;\n    background-color: #fff;\n}\n.wheel-item{\n    height: 1.06667rem;\n    align-items: center;\n    justify-content: center;\n}\n", ""]);
 
 // exports
 
@@ -23307,13 +23307,56 @@ var _wxcPopup2 = _interopRequireDefault(_wxcPopup);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var height = 80;
+var num = 3;
+
+var modal = weex.requireModule('modal');
+var dom = weex.requireModule('dom');
 exports.default = {
     components: { WxcPopup: _wxcPopup2.default },
     data: function data() {
         return {
             showState: false,
             isBottomShow: false,
-            height: 400
+            height: 500,
+            offsetY: 0
         };
     },
     methods: {
@@ -23332,19 +23375,27 @@ exports.default = {
         popupOverlayBottomClick: function popupOverlayBottomClick() {
             this.isBottomShow = false;
             this.hide();
+        },
+        scroll: function scroll(e) {
+            modal.toast({
+                message: e,
+                duration: 10
+            });
+            this.offsetY = Math.abs(e.contentOffset.y);
+        }
+    },
+    watch: {
+        offsetY: function offsetY(newVal) {
+            var _this = this;
+
+            this.timer = setTimeout(function () {
+                _this.flag = true;
+                var place = parseInt(newVal / height);
+                // dom.scrollToElement(this.$refs['cell' + place][0], {})
+            }, 0);
         }
     }
-}; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+};
 
 /***/ }),
 /* 39 */
@@ -24035,7 +24086,100 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "weex-type": "div"
     }
-  })])], 1) : _vm._e()
+  }, [_c('div', {
+    staticClass: "content-title weex-ct weex-div",
+    attrs: {
+      "weex-type": "div"
+    }
+  }, [_c('p', {
+    staticClass: "content-title-cancel font-size-small-s weex-el weex-text",
+    attrs: {
+      "weex-type": "text"
+    }
+  }, [_vm._v("cancel")]), _vm._v(" "), _c('p', {
+    staticClass: "content-title-name font-size-small weex-el weex-text",
+    attrs: {
+      "weex-type": "text"
+    }
+  }, [_vm._v("PickDate")]), _vm._v(" "), _c('p', {
+    staticClass: "content-title-confirm font-size-small-s weex-el weex-text",
+    attrs: {
+      "weex-type": "text"
+    }
+  }, [_vm._v("confirm")])]), _vm._v(" "), _c('div', {
+    staticClass: "content-data weex-ct weex-div",
+    attrs: {
+      "weex-type": "div"
+    }
+  }, [_c('div', {
+    staticClass: "content-wheel-wrapper weex-ct weex-div",
+    attrs: {
+      "weex-type": "div"
+    }
+  }, [_c('list', {
+    attrs: {
+      "data-evt-scroll": ""
+    },
+    nativeOn: {
+      "weex$scroll": function($event) {
+        $event.stopPropagation();
+        return _vm.scroll($event)
+      }
+    }
+  }, [_vm._l((2), function(top) {
+    return _c('section', {
+      staticClass: " weex-ct weex-cell",
+      attrs: {
+        "weex-type": "cell"
+      }
+    }, [_c('div', {
+      staticClass: "wheel-item weex-ct weex-div",
+      attrs: {
+        "weex-type": "div"
+      }
+    })])
+  }), _vm._v(" "), _vm._l((20), function(item, index) {
+    return _c('section', {
+      ref: 'cell' + index,
+      refInFor: true,
+      staticClass: " weex-ct weex-cell",
+      attrs: {
+        "weex-type": "cell"
+      }
+    }, [_c('div', {
+      staticClass: "wheel-item weex-ct weex-div",
+      attrs: {
+        "weex-type": "div"
+      }
+    }, [_c('p', {
+      staticClass: "font-size-middle-s weex-el weex-text",
+      attrs: {
+        "weex-type": "text"
+      }
+    }, [_vm._v(_vm._s(item))])])])
+  }), _vm._v(" "), _vm._l((2), function(top) {
+    return _c('section', {
+      staticClass: " weex-ct weex-cell",
+      attrs: {
+        "weex-type": "cell"
+      }
+    }, [_c('div', {
+      staticClass: "wheel-item weex-ct weex-div",
+      attrs: {
+        "weex-type": "div"
+      }
+    })])
+  })], 2)], 1), _vm._v(" "), _c('div', {
+    staticClass: "content-mask-top weex-ct weex-div",
+    attrs: {
+      "weex-type": "div"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "content-mask-bottom weex-ct weex-div",
+    attrs: {
+      "weex-type": "div"
+    }
+  })])])])], 1) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

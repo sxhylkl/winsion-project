@@ -3568,6 +3568,15 @@ module.exports = __vue_exports__
 /***/ (function(module, exports) {
 
 module.exports = {
+  "font-size-small-s": {
+    "fontSize": "28"
+  },
+  "font-size-small": {
+    "fontSize": "32"
+  },
+  "font-size-middle-s": {
+    "fontSize": "36"
+  },
   "wrapper": {
     "position": "absolute",
     "left": 0,
@@ -3580,8 +3589,58 @@ module.exports = {
     "left": 0,
     "right": 0,
     "top": 0,
+    "bottom": 0
+  },
+  "content-title": {
+    "height": "100",
+    "flexDirection": "row",
+    "justifyContent": "space-between",
+    "alignItems": "center",
+    "backgroundColor": "#eeeeee"
+  },
+  "content-title-cancel": {
+    "marginLeft": "20",
+    "marginRight": "20"
+  },
+  "content-title-confirm": {
+    "marginLeft": "20",
+    "marginRight": "20"
+  },
+  "content-data": {
+    "height": "400"
+  },
+  "content-mask-top": {
+    "position": "absolute",
+    "left": 0,
+    "right": 0,
+    "top": 0,
+    "height": "160",
+    "backgroundImage": "linear-gradient(to bottom,#eee,#fff)",
+    "opacity": 0.8,
+    "borderBottomWidth": "1",
+    "borderBottomColor": "#dddddd"
+  },
+  "content-mask-bottom": {
+    "position": "absolute",
+    "left": 0,
+    "right": 0,
     "bottom": 0,
+    "height": "160",
+    "backgroundImage": "linear-gradient(to top,#eee,#fff)",
+    "opacity": 0.8,
+    "borderTopWidth": "1",
+    "borderTopColor": "#dddddd"
+  },
+  "content-wheel-wrapper": {
+    "height": "400",
+    "paddingRight": "15",
+    "paddingLeft": "15",
     "backgroundColor": "#ffffff"
+  },
+  "wheel-item": {
+    "height": "80",
+    "alignItems": "center",
+    "justifyContent": "center"
   }
 }
 
@@ -3602,13 +3661,56 @@ var _wxcPopup2 = _interopRequireDefault(_wxcPopup);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var height = 80;
+var num = 3;
+
+var modal = weex.requireModule('modal');
+var dom = weex.requireModule('dom');
 exports.default = {
     components: { WxcPopup: _wxcPopup2.default },
     data: function data() {
         return {
             showState: false,
             isBottomShow: false,
-            height: 400
+            height: 500,
+            offsetY: 0
         };
     },
     methods: {
@@ -3627,19 +3729,27 @@ exports.default = {
         popupOverlayBottomClick: function popupOverlayBottomClick() {
             this.isBottomShow = false;
             this.hide();
+        },
+        scroll: function scroll(e) {
+            modal.toast({
+                message: e,
+                duration: 10
+            });
+            this.offsetY = Math.abs(e.contentOffset.y);
+        }
+    },
+    watch: {
+        offsetY: function offsetY(newVal) {
+            var _this = this;
+
+            this.timer = setTimeout(function () {
+                _this.flag = true;
+                var place = parseInt(newVal / height);
+                // dom.scrollToElement(this.$refs['cell' + place][0], {})
+            }, 0);
         }
     }
-}; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+};
 
 /***/ }),
 /* 24 */
@@ -4241,7 +4351,58 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: ["content"]
-  })])], 1) : _vm._e()
+  }, [_c('div', {
+    staticClass: ["content-title"]
+  }, [_c('text', {
+    staticClass: ["content-title-cancel", "font-size-small-s"]
+  }, [_vm._v("cancel")]), _c('text', {
+    staticClass: ["content-title-name", "font-size-small"]
+  }, [_vm._v("PickDate")]), _c('text', {
+    staticClass: ["content-title-confirm", "font-size-small-s"]
+  }, [_vm._v("confirm")])]), _c('div', {
+    staticClass: ["content-data"]
+  }, [_c('div', {
+    staticClass: ["content-wheel-wrapper"]
+  }, [_c('list', {
+    on: {
+      "scroll": _vm.scroll
+    }
+  }, [_vm._l((2), function(top) {
+    return _c('cell', {
+      appendAsTree: true,
+      attrs: {
+        "append": "tree"
+      }
+    }, [_c('div', {
+      staticClass: ["wheel-item"]
+    })])
+  }), _vm._l((20), function(item, index) {
+    return _c('cell', {
+      ref: 'cell' + index,
+      refInFor: true,
+      appendAsTree: true,
+      attrs: {
+        "append": "tree"
+      }
+    }, [_c('div', {
+      staticClass: ["wheel-item"]
+    }, [_c('text', {
+      staticClass: ["font-size-middle-s"]
+    }, [_vm._v(_vm._s(item))])])])
+  }), _vm._l((2), function(top) {
+    return _c('cell', {
+      appendAsTree: true,
+      attrs: {
+        "append": "tree"
+      }
+    }, [_c('div', {
+      staticClass: ["wheel-item"]
+    })])
+  })], 2)]), _c('div', {
+    staticClass: ["content-mask-top"]
+  }), _c('div', {
+    staticClass: ["content-mask-bottom"]
+  })])])])], 1) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 
