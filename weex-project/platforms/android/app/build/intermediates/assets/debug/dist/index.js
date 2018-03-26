@@ -3635,9 +3635,17 @@ module.exports = {
     "height": "400",
     "paddingRight": "15",
     "paddingLeft": "15",
+    "flexDirection": "row",
     "backgroundColor": "#ffffff"
   },
-  "wheel-item": {
+  "wheel": {
+    "flex": 1,
+    "height": "400"
+  },
+  "wheel-scroll": {
+    "paddingTop": "160"
+  },
+  "wheel-scroll-item": {
     "height": "80",
     "alignItems": "center",
     "justifyContent": "center"
@@ -3694,23 +3702,24 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
-//
-//
 
 var height = 80;
-var num = 3;
 
 var modal = weex.requireModule('modal');
 var dom = weex.requireModule('dom');
 exports.default = {
     components: { WxcPopup: _wxcPopup2.default },
+    created: function created() {
+        this.touches = {};
+    },
+
     data: function data() {
         return {
             showState: false,
             isBottomShow: false,
             height: 500,
-            offsetY: 0
+            translate: 0,
+            month: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
         };
     },
     methods: {
@@ -3730,19 +3739,27 @@ exports.default = {
             this.isBottomShow = false;
             this.hide();
         },
-        scroll: function scroll(e) {
-            this.offsetY = Math.abs(e.contentOffset.y);
-        }
-    },
-    watch: {
-        offsetY: function offsetY(newVal) {
-            var _this = this;
-
-            clearTimeout(this.timer);
-            this.timer = setTimeout(function () {
-                var place = num + parseInt(newVal / height + 0.5);
-                dom.scrollToElement(_this.$refs['cell' + place][0], {});
-            }, 300);
+        touchStart: function touchStart(e) {
+            this.touches.initStated = true;
+            this.touches.pageY = e.changedTouches[0].pageY;
+            this.touches.top = this.translate;
+        },
+        touchMove: function touchMove(e) {
+            if (!this.touches.initStated) return;
+            var del = e.changedTouches[0].pageY - this.touches.pageY;
+            var translate = this.touches.top + del;
+            var min = -height * (this.month.length - 1);
+            var max = 0;
+            if (translate > max) {
+                translate = max;
+            }
+            if (translate < min) {
+                translate = min;
+            }
+            this.translate = translate;
+        },
+        touchEnd: function touchEnd(e) {
+            this.touches.initStated = false;
         }
     }
 };
@@ -4359,42 +4376,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: ["content-data"]
   }, [_c('div', {
     staticClass: ["content-wheel-wrapper"]
-  }, [_c('list', {
+  }, [_c('div', {
+    staticClass: ["wheel"],
     on: {
-      "scroll": _vm.scroll
+      "touchstart": _vm.touchStart,
+      "touchmove": _vm.touchMove,
+      "touchend": _vm.touchEnd
     }
-  }, [_vm._l((2), function(top) {
-    return _c('cell', {
-      appendAsTree: true,
-      attrs: {
-        "append": "tree"
-      }
-    }, [_c('div', {
-      staticClass: ["wheel-item"]
-    })])
-  }), _vm._l((20), function(item) {
-    return _c('cell', {
-      ref: 'cell' + item,
-      refInFor: true,
-      appendAsTree: true,
-      attrs: {
-        "append": "tree"
-      }
-    }, [_c('div', {
-      staticClass: ["wheel-item"]
+  }, [_c('div', {
+    staticClass: ["wheel-scroll"],
+    style: {
+      transform: 'translateY(' + _vm.translate + 'px)'
+    }
+  }, _vm._l((_vm.month), function(item) {
+    return _c('div', {
+      staticClass: ["wheel-scroll-item"]
     }, [_c('text', {
-      staticClass: ["font-size-middle-s"]
-    }, [_vm._v(_vm._s(item))])])])
-  }), _vm._l((2), function(top) {
-    return _c('cell', {
-      appendAsTree: true,
-      attrs: {
-        "append": "tree"
-      }
-    }, [_c('div', {
-      staticClass: ["wheel-item"]
-    })])
-  })], 2)]), _c('div', {
+      staticClass: ["font-size-small"]
+    }, [_vm._v(_vm._s(item))])])
+  }))])]), _c('div', {
     staticClass: ["content-mask-top"]
   }), _c('div', {
     staticClass: ["content-mask-bottom"]

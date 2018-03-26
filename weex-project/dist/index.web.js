@@ -23285,7 +23285,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*-----------------------------*/\n.font-size-small-s{\n    font-size: 0.37333rem;\n}\n.font-size-small{\n    font-size: 0.42667rem;\n}\n.font-size-middle-s{\n    font-size: 0.48rem;\n}\n/*-----------------------------*/\n.wrapper {\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0;\n}\n.content{\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0;\n}\n.content-title{\n    height: 1.33333rem;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    background-color: #eee;\n}\n.content-title-cancel,.content-title-confirm{\n    margin-left: 0.26667rem;\n    margin-right: 0.26667rem;\n}\n.content-data{\n    height: 5.33333rem;\n}\n.content-mask-top{\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    height: 2.13333rem;\n    background-image: -webkit-linear-gradient(top,#eee,#fff);\n    background-image: linear-gradient(to bottom,#eee,#fff);\n    opacity: 0.8;\n    border-bottom-width: 1px;\n    border-bottom-color: #ddd;\n}\n.content-mask-bottom{\n    position: absolute;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    height: 2.13333rem;\n    background-image: -webkit-linear-gradient(bottom,#eee,#fff);\n    background-image: linear-gradient(to top,#eee,#fff);\n    opacity: 0.8;\n    border-top-width: 1px;\n    border-top-color: #ddd;\n}\n.content-wheel-wrapper{\n    height: 5.33333rem;\n    padding-right: 0.2rem;\n    padding-left: 0.2rem;\n    background-color: #fff;\n}\n.wheel-item{\n    height: 1.06667rem;\n    align-items: center;\n    justify-content: center;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*-----------------------------*/\n.font-size-small-s{\n    font-size: 0.37333rem;\n}\n.font-size-small{\n    font-size: 0.42667rem;\n}\n.font-size-middle-s{\n    font-size: 0.48rem;\n}\n/*-----------------------------*/\n.wrapper {\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0;\n}\n.content{\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0;\n}\n.content-title{\n    height: 1.33333rem;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    background-color: #eee;\n}\n.content-title-cancel,.content-title-confirm{\n    margin-left: 0.26667rem;\n    margin-right: 0.26667rem;\n}\n.content-data{\n    height: 5.33333rem;\n}\n.content-mask-top{\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    height: 2.13333rem;\n    background-image: -webkit-linear-gradient(top,#eee,#fff);\n    background-image: linear-gradient(to bottom,#eee,#fff);\n    opacity: 0.8;\n    border-bottom-width: 1px;\n    border-bottom-color: #ddd;\n}\n.content-mask-bottom{\n    position: absolute;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    height: 2.13333rem;\n    background-image: -webkit-linear-gradient(bottom,#eee,#fff);\n    background-image: linear-gradient(to top,#eee,#fff);\n    opacity: 0.8;\n    border-top-width: 1px;\n    border-top-color: #ddd;\n}\n.content-wheel-wrapper{\n    height: 5.33333rem;\n    padding-right: 0.2rem;\n    padding-left: 0.2rem;\n    flex-direction: row;\n    background-color: #fff;\n}\n.wheel{\n    flex: 1;\n    height: 5.33333rem;\n}\n.wheel-scroll{\n    padding-top: 2.13333rem;\n}\n.wheel-scroll-item{\n    height: 1.06667rem;\n    align-items: center;\n    justify-content: center;\n}\n", ""]);
 
 // exports
 
@@ -23340,23 +23340,24 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
-//
-//
 
 var height = 80;
-var num = 3;
 
 var modal = weex.requireModule('modal');
 var dom = weex.requireModule('dom');
 exports.default = {
     components: { WxcPopup: _wxcPopup2.default },
+    created: function created() {
+        this.touches = {};
+    },
+
     data: function data() {
         return {
             showState: false,
             isBottomShow: false,
             height: 500,
-            offsetY: 0
+            translate: 0,
+            month: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
         };
     },
     methods: {
@@ -23376,23 +23377,28 @@ exports.default = {
             this.isBottomShow = false;
             this.hide();
         },
-        scroll: function scroll(e) {
-            modal.toast({
-                message: e,
-                duration: 10
-            });
-            this.offsetY = Math.abs(e.contentOffset.y);
-        }
-    },
-    watch: {
-        offsetY: function offsetY(newVal) {
-            var _this = this;
-
-            this.timer = setTimeout(function () {
-                _this.flag = true;
-                var place = parseInt(newVal / height);
-                // dom.scrollToElement(this.$refs['cell' + place][0], {})
-            }, 0);
+        touchStart: function touchStart(e) {
+            this.touches.initStated = true;
+            this.touches.pageY = e.changedTouches[0].pageY;
+            this.touches.top = this.translate;
+        },
+        touchMove: function touchMove(e) {
+            if (!this.touches.initStated) return;
+            var del = e.changedTouches[0].pageY - this.touches.pageY;
+            var translate = this.touches.top + del;
+            var min = -height * (this.month.length - 1);
+            var max = 0;
+            if (translate > max) {
+                translate = max;
+            }
+            if (translate < min) {
+                translate = min;
+            }
+            this.translate = translate;
+        },
+        touchEnd: function touchEnd(e) {
+            this.touches.initStated = false;
+            this.translate = parseInt(this.translate / height - 0.4) * height;
         }
     }
 };
@@ -24116,60 +24122,49 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "weex-type": "div"
     }
-  }, [_c('list', {
+  }, [_c('div', {
+    staticClass: "wheel weex-ct weex-div",
     attrs: {
-      "data-evt-scroll": ""
+      "weex-type": "div",
+      "data-evt-touchstart": "",
+      "data-evt-touchmove": "",
+      "data-evt-touchend": ""
     },
-    nativeOn: {
-      "weex$scroll": function($event) {
+    on: {
+      "touchstart": function($event) {
         $event.stopPropagation();
-        return _vm.scroll($event)
+        return _vm.touchStart($event)
+      },
+      "touchmove": function($event) {
+        $event.stopPropagation();
+        return _vm.touchMove($event)
+      },
+      "touchend": function($event) {
+        $event.stopPropagation();
+        return _vm.touchEnd($event)
       }
     }
-  }, [_vm._l((2), function(top) {
-    return _c('section', {
-      staticClass: " weex-ct weex-cell",
-      attrs: {
-        "weex-type": "cell"
-      }
-    }, [_c('div', {
-      staticClass: "wheel-item weex-ct weex-div",
-      attrs: {
-        "weex-type": "div"
-      }
-    })])
-  }), _vm._v(" "), _vm._l((20), function(item, index) {
-    return _c('section', {
-      ref: 'cell' + index,
-      refInFor: true,
-      staticClass: " weex-ct weex-cell",
-      attrs: {
-        "weex-type": "cell"
-      }
-    }, [_c('div', {
-      staticClass: "wheel-item weex-ct weex-div",
+  }, [_c('div', {
+    staticClass: "wheel-scroll weex-ct weex-div",
+    style: ({
+      transform: _vm._px2rem('translateY(' + _vm.translate + 'px)', 75)
+    }),
+    attrs: {
+      "weex-type": "div"
+    }
+  }, _vm._l((_vm.month), function(item) {
+    return _c('div', {
+      staticClass: "wheel-scroll-item weex-ct weex-div",
       attrs: {
         "weex-type": "div"
       }
     }, [_c('p', {
-      staticClass: "font-size-middle-s weex-el weex-text",
+      staticClass: "font-size-small weex-el weex-text",
       attrs: {
         "weex-type": "text"
       }
-    }, [_vm._v(_vm._s(item))])])])
-  }), _vm._v(" "), _vm._l((2), function(top) {
-    return _c('section', {
-      staticClass: " weex-ct weex-cell",
-      attrs: {
-        "weex-type": "cell"
-      }
-    }, [_c('div', {
-      staticClass: "wheel-item weex-ct weex-div",
-      attrs: {
-        "weex-type": "div"
-      }
-    })])
-  })], 2)], 1), _vm._v(" "), _c('div', {
+    }, [_vm._v(_vm._s(item))])])
+  }))])]), _vm._v(" "), _c('div', {
     staticClass: "content-mask-top weex-ct weex-div",
     attrs: {
       "weex-type": "div"
