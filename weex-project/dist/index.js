@@ -3643,7 +3643,7 @@ module.exports = {
     "height": "400"
   },
   "wheel-scroll": {
-    "paddingTop": "160"
+    "height": "400"
   },
   "wheel-scroll-item": {
     "height": "80",
@@ -3702,10 +3702,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 
 var height = 80;
 
 var modal = weex.requireModule('modal');
+var animation = weex.requireModule('animation');
 var dom = weex.requireModule('dom');
 exports.default = {
     components: { WxcPopup: _wxcPopup2.default },
@@ -3718,7 +3721,6 @@ exports.default = {
             showState: false,
             isBottomShow: false,
             height: 500,
-            translate: 0,
             month: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
         };
     },
@@ -3740,28 +3742,13 @@ exports.default = {
             this.hide();
         },
         touchStart: function touchStart(e) {
-            this.touches.initStated = true;
-            this.touches.pageY = e.changedTouches[0].pageY;
-            this.touches.top = this.translate;
+            modal.toast({
+                message: '123',
+                duration: 2
+            });
         },
-        touchMove: function touchMove(e) {
-            if (!this.touches.initStated) return;
-            var del = e.changedTouches[0].pageY - this.touches.pageY;
-            var translate = this.touches.top + del;
-            var min = -height * (this.month.length - 1);
-            var max = 0;
-            if (translate > max) {
-                translate = max;
-            }
-            if (translate < min) {
-                translate = min;
-            }
-            this.translate = translate;
-        },
-        touchEnd: function touchEnd(e) {
-            this.touches.initStated = false;
-            this.translate = parseInt(this.translate / height - 0.4) * height;
-        }
+        touchMove: function touchMove(e) {},
+        touchEnd: function touchEnd(e) {}
     }
 };
 
@@ -4384,18 +4371,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "touchmove": _vm.touchMove,
       "touchend": _vm.touchEnd
     }
-  }, [_c('div', {
+  }, [_c('scroller', {
+    ref: "wheelScroll",
     staticClass: ["wheel-scroll"],
-    style: {
-      transform: 'translateY(' + _vm.translate + 'px)'
+    attrs: {
+      "showScrollbar": false
     }
-  }, _vm._l((_vm.month), function(item) {
+  }, [_vm._l((2), function(scroll) {
+    return _c('div', {
+      staticClass: ["wheel-scroll-item"]
+    })
+  }), _vm._l((_vm.month), function(item) {
     return _c('div', {
       staticClass: ["wheel-scroll-item"]
     }, [_c('text', {
       staticClass: ["font-size-small"]
     }, [_vm._v(_vm._s(item))])])
-  }))])]), _c('div', {
+  }), _vm._l((2), function(scroll) {
+    return _c('div', {
+      staticClass: ["wheel-scroll-item"]
+    })
+  })], 2)])]), _c('div', {
     staticClass: ["content-mask-top"]
   }), _c('div', {
     staticClass: ["content-mask-bottom"]

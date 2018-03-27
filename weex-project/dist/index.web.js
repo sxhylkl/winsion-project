@@ -23285,7 +23285,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*-----------------------------*/\n.font-size-small-s{\n    font-size: 0.37333rem;\n}\n.font-size-small{\n    font-size: 0.42667rem;\n}\n.font-size-middle-s{\n    font-size: 0.48rem;\n}\n/*-----------------------------*/\n.wrapper {\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0;\n}\n.content{\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0;\n}\n.content-title{\n    height: 1.33333rem;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    background-color: #eee;\n}\n.content-title-cancel,.content-title-confirm{\n    margin-left: 0.26667rem;\n    margin-right: 0.26667rem;\n}\n.content-data{\n    height: 5.33333rem;\n}\n.content-mask-top{\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    height: 2.13333rem;\n    background-image: -webkit-linear-gradient(top,#eee,#fff);\n    background-image: linear-gradient(to bottom,#eee,#fff);\n    opacity: 0.8;\n    border-bottom-width: 1px;\n    border-bottom-color: #ddd;\n}\n.content-mask-bottom{\n    position: absolute;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    height: 2.13333rem;\n    background-image: -webkit-linear-gradient(bottom,#eee,#fff);\n    background-image: linear-gradient(to top,#eee,#fff);\n    opacity: 0.8;\n    border-top-width: 1px;\n    border-top-color: #ddd;\n}\n.content-wheel-wrapper{\n    height: 5.33333rem;\n    padding-right: 0.2rem;\n    padding-left: 0.2rem;\n    flex-direction: row;\n    background-color: #fff;\n}\n.wheel{\n    flex: 1;\n    height: 5.33333rem;\n}\n.wheel-scroll{\n    padding-top: 2.13333rem;\n}\n.wheel-scroll-item{\n    height: 1.06667rem;\n    align-items: center;\n    justify-content: center;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*-----------------------------*/\n.font-size-small-s{\n    font-size: 0.37333rem;\n}\n.font-size-small{\n    font-size: 0.42667rem;\n}\n.font-size-middle-s{\n    font-size: 0.48rem;\n}\n/*-----------------------------*/\n.wrapper {\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0;\n}\n.content{\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0;\n}\n.content-title{\n    height: 1.33333rem;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    background-color: #eee;\n}\n.content-title-cancel,.content-title-confirm{\n    margin-left: 0.26667rem;\n    margin-right: 0.26667rem;\n}\n.content-data{\n    height: 5.33333rem;\n}\n.content-mask-top{\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    height: 2.13333rem;\n    background-image: -webkit-linear-gradient(top,#eee,#fff);\n    background-image: linear-gradient(to bottom,#eee,#fff);\n    opacity: 0.8;\n    border-bottom-width: 1px;\n    border-bottom-color: #ddd;\n}\n.content-mask-bottom{\n    position: absolute;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    height: 2.13333rem;\n    background-image: -webkit-linear-gradient(bottom,#eee,#fff);\n    background-image: linear-gradient(to top,#eee,#fff);\n    opacity: 0.8;\n    border-top-width: 1px;\n    border-top-color: #ddd;\n}\n.content-wheel-wrapper{\n    height: 5.33333rem;\n    padding-right: 0.2rem;\n    padding-left: 0.2rem;\n    flex-direction: row;\n    background-color: #fff;\n}\n.wheel{\n    flex: 1;\n    height: 5.33333rem;\n}\n.wheel-scroll{\n    height: 5.33333rem;\n}\n.wheel-scroll-item{\n    height: 1.06667rem;\n    align-items: center;\n    justify-content: center;\n}\n", ""]);
 
 // exports
 
@@ -23340,10 +23340,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 
 var height = 80;
 
 var modal = weex.requireModule('modal');
+var animation = weex.requireModule('animation');
 var dom = weex.requireModule('dom');
 exports.default = {
     components: { WxcPopup: _wxcPopup2.default },
@@ -23356,7 +23359,6 @@ exports.default = {
             showState: false,
             isBottomShow: false,
             height: 500,
-            translate: 0,
             month: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
         };
     },
@@ -23378,28 +23380,13 @@ exports.default = {
             this.hide();
         },
         touchStart: function touchStart(e) {
-            this.touches.initStated = true;
-            this.touches.pageY = e.changedTouches[0].pageY;
-            this.touches.top = this.translate;
+            modal.toast({
+                message: '123',
+                duration: 2
+            });
         },
-        touchMove: function touchMove(e) {
-            if (!this.touches.initStated) return;
-            var del = e.changedTouches[0].pageY - this.touches.pageY;
-            var translate = this.touches.top + del;
-            var min = -height * (this.month.length - 1);
-            var max = 0;
-            if (translate > max) {
-                translate = max;
-            }
-            if (translate < min) {
-                translate = min;
-            }
-            this.translate = translate;
-        },
-        touchEnd: function touchEnd(e) {
-            this.touches.initStated = false;
-            this.translate = parseInt(this.translate / height - 0.4) * height;
-        }
+        touchMove: function touchMove(e) {},
+        touchEnd: function touchEnd(e) {}
     }
 };
 
@@ -24144,15 +24131,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         return _vm.touchEnd($event)
       }
     }
-  }, [_c('div', {
-    staticClass: "wheel-scroll weex-ct weex-div",
-    style: ({
-      transform: _vm._px2rem('translateY(' + _vm.translate + 'px)', 75)
-    }),
+  }, [_c('scroller', {
+    ref: "wheelScroll",
+    staticClass: "wheel-scroll",
     attrs: {
-      "weex-type": "div"
+      "show-scrollbar": false
     }
-  }, _vm._l((_vm.month), function(item) {
+  }, [_vm._l((2), function(scroll) {
+    return _c('div', {
+      staticClass: "wheel-scroll-item weex-ct weex-div",
+      attrs: {
+        "weex-type": "div"
+      }
+    })
+  }), _vm._v(" "), _vm._l((_vm.month), function(item) {
     return _c('div', {
       staticClass: "wheel-scroll-item weex-ct weex-div",
       attrs: {
@@ -24164,7 +24156,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "weex-type": "text"
       }
     }, [_vm._v(_vm._s(item))])])
-  }))])]), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _vm._l((2), function(scroll) {
+    return _c('div', {
+      staticClass: "wheel-scroll-item weex-ct weex-div",
+      attrs: {
+        "weex-type": "div"
+      }
+    })
+  })], 2)], 1)]), _vm._v(" "), _c('div', {
     staticClass: "content-mask-top weex-ct weex-div",
     attrs: {
       "weex-type": "div"

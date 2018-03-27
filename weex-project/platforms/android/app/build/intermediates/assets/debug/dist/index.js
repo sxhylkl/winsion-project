@@ -3706,6 +3706,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var height = 80;
 
 var modal = weex.requireModule('modal');
+var animation = weex.requireModule('animation');
 var dom = weex.requireModule('dom');
 exports.default = {
     components: { WxcPopup: _wxcPopup2.default },
@@ -3740,6 +3741,12 @@ exports.default = {
             this.hide();
         },
         touchStart: function touchStart(e) {
+            var style = this.$refs.wheelScroll.style.transform;
+            modal.toast({
+                message: style,
+                duration: 2
+            });
+
             this.touches.initStated = true;
             this.touches.pageY = e.changedTouches[0].pageY;
             this.touches.top = this.translate;
@@ -3760,6 +3767,7 @@ exports.default = {
         },
         touchEnd: function touchEnd(e) {
             this.touches.initStated = false;
+            this.translate = parseInt(this.translate / height - 0.4) * height;
         }
     }
 };
@@ -4384,10 +4392,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "touchend": _vm.touchEnd
     }
   }, [_c('div', {
-    staticClass: ["wheel-scroll"],
-    style: {
-      transform: 'translateY(' + _vm.translate + 'px)'
-    }
+    ref: "wheelScroll",
+    staticClass: ["wheel-scroll"]
   }, _vm._l((_vm.month), function(item) {
     return _c('div', {
       staticClass: ["wheel-scroll-item"]
