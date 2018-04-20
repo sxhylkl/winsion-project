@@ -1,5 +1,10 @@
-var dataUrl = 'http://10.0.0.2:8080'
+var dataUrl = '';
 //var dataUrl = 'http://172.16.6.100:9411'
+//var dataUrl = 'http://172.16.200.20:19411'
+(function () {
+    var winUrl = window.location.href.split(':8080')[0]
+    dataUrl = winUrl + ':8080'
+})()
 
 //判断是否有用户登录，若登录，获取职能组信息，问题大类，区域
 isLogin() && getAndSetList()
@@ -605,13 +610,20 @@ function getSum(arr) {
 //更改url
 function changeUrl(url) {
 
-    var currentUrl = 'http://107.78.97.59:8080'
-    var dataUrl = 'http://10.0.0.2:8080'
+    var winUrl = window.location.href.split(':8080')[0]
+    var currentUrl = 'http://107.78.97.59'
+    var dataUrl = 'http://10.0.0.2'
 
     if (!url) return ''
 
     var str = url
-    str.replace(currentUrl, dataUrl)
+
+    if (str.indexOf(winUrl) !== -1) {
+        if (winUrl === currentUrl) {
+            str.replace(dataUrl, winUrl)
+        }else{
+            str.replace(currentUrl, winUrl)
+        }
+    }
     return str
 }
-
