@@ -1,5 +1,6 @@
 var dataUrl = '';
-//var dataUrl = 'http://172.16.6.100:9411'
+//var dataUrl = 'http://121.69.136.97:9411';
+//var dataUrl = 'http://172.16.6.81:9411'
 //var dataUrl = 'http://172.16.200.20:19411'
 (function () {
     var winUrl = window.location.href.split(':18080')[0]

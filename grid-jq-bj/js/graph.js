@@ -75,6 +75,7 @@ $('#graphBtn').click(function () {
             url: dataUrl + "/kingkong/0.01/job/gridFindByBaseCondition",
             data: {data: dataJson},
             success: function (result) {
+                console.log(result)
                 //将数据保存
                 graphData = result.data.dataList
                 //存取数据元素置空
@@ -88,29 +89,22 @@ $('#graphBtn').click(function () {
                 }
                 //对应添加新数据
                 var arr2 = [], arr3 = [], arr4 = [], arr5 = [], arr6 = [], arr7 = [], arr8 = [], arr9 = [],arr10 = [], arr11 = [], arr12 = []
-                var arrNorth1 = [],arrSouth1=[],arrEast1=[],arrEast2=[],arrWest1=[],arrWest2=[],arrCenter1=[],arrCenter2=[]
-                var local2 = ''     //第2候车室
-                var local3 = ''     //第3候车室
-                var local4 = '8a7bd86c-e162-11e7-b8b7-782bcb466fe6'     //第4候车室
-                var local5 = '8a7bd6fa-e162-11e7-b8b7-782bcb466fe6'     //第5候车室
-                var local6 = ''     //第6候车室
-                var local7 = ''     //第7候车室
-                var local8 = ''     //第8候车室
-                var local9 = ''     //第9候车室
-                var local10 = '8a7bd9d2-e162-11e7-b8b7-782bcb466fe6'    //第10候车室
-                var local11 = '8a7bd92c-e162-11e7-b8b7-782bcb466fe6'     //第11候车室
-                var local12 = ''     //第12候车室
-                var localNorth1 = '8a78d511-e162-11e7-b8b7-782bcb466fe6'     //北侧候车室
-                var localSouth1 = ''     //南侧候车室
-                var localEast1 = ''     //西侧上候车室
-                var localEast2 = ''     //西侧下候车室
-                var localWest1 = ''     //东侧上候车室
-                var localWest2 = ''     //东侧下候车室
-                var localCenter1 = '8a7bda6f-e162-11e7-b8b7-782bcb466fe6'     //中间上候车室
-                var localCenter2 = ''     //中间下候车室
+                var local2 = '8a78d511-e162-11e7-b8b7-782bcb466fe6'     //<!--普东-->
+                var local3 = '8a7bd6fa-e162-11e7-b8b7-782bcb466fe6'     //<!--普西-->
+                var local4 = '8a7bd86c-e162-11e7-b8b7-782bcb466fe6'     //<!--高东-->
+                var local5 = '8a7bd92c-e162-11e7-b8b7-782bcb466fe6'     //<!--高西-->
+                var local6 = '8a7bd9d2-e162-11e7-b8b7-782bcb466fe6'     //<!--036-->
+                var local7 = '8a7bda6f-e162-11e7-b8b7-782bcb466fe6'     //<!--值班站长-->
+                var local8 = '9b7bda6f-e162-11e7-b8b7-782bcb466fe6'     //<!--西二-->
+                var local9 = '9b7bda6f-e162-11e7-c8b7-782bcb466fe8'     //<!--北进站区-->
+                var local10 = '6c7bda6f-e162-11e7-c8b7-782bcb466fe8'    //<!--南进站区-->
+                var local11 = '5b7bda6f-e162-11e7-c8b7-782bcb466fe8'     //<!--普速站台区-->
+                var local12 = '3c7bda6f-e162-11e7-c8b7-782bcb466fe8'     //<!--高铁站台区-->
 
                 result.data.dataList.forEach(function (item) {
+                    console.log(item)
                     if (item.pointsid == local2) {
+                        console.log(1)
                         arr2.push({id: item.id, status: item.patrolsstate,teamNamne:item.committeamname})
                     } else if (item.pointsid == local3) {
                         arr3.push({id: item.id, status: item.patrolsstate,teamNamne:item.committeamname})
@@ -132,24 +126,9 @@ $('#graphBtn').click(function () {
                         arr11.push({id: item.id, status: item.patrolsstate,teamNamne:item.committeamname})
                     }else if (item.pointsid == local12) {
                         arr12.push({id: item.id, status: item.patrolsstate,teamNamne:item.committeamname})
-                    }else if (item.pointsid == localNorth1) {
-                        arrNorth1.push({id: item.id, status: item.patrolsstate,teamNamne:item.committeamname})
-                    }else if (item.pointsid == localSouth1) {
-                        arrSouth1.push({id: item.id, status: item.patrolsstate,teamNamne:item.committeamname})
-                    }else if (item.pointsid == localEast1) {
-                        arrEast1.push({id: item.id, status: item.patrolsstate,teamNamne:item.committeamname})
-                    }else if (item.pointsid == localEast2) {
-                        arrEast2.push({id: item.id, status: item.patrolsstate,teamNamne:item.committeamname})
-                    }else if (item.pointsid == localWest1) {
-                        arrWest1.push({id: item.id, status: item.patrolsstate,teamNamne:item.committeamname})
-                    }else if (item.pointsid == localWest2) {
-                        arrWest2.push({id: item.id, status: item.patrolsstate,teamNamne:item.committeamname})
-                    }else if (item.pointsid == localCenter1) {
-                        arrCenter1.push({id: item.id, status: item.patrolsstate,teamNamne:item.committeamname})
-                    }else if (item.pointsid == localCenter2) {
-                        arrCenter2.push({id: item.id, status: item.patrolsstate,teamNamne:item.committeamname})
                     }
                 })
+                console.log(arr2)
                 //设置候车室
                 setRoom(arr2, 2)
                 setRoom(arr3, 3)
@@ -163,14 +142,6 @@ $('#graphBtn').click(function () {
                 setRoom(arr11, 11)
                 setRoom(arr12, 12)
 
-                setRoom(arrNorth1, 13)
-                setRoom(arrSouth1, 14)
-                setRoom(arrEast1, 15)
-                setRoom(arrEast2, 16)
-                setRoom(arrWest1, 17)
-                setRoom(arrWest2, 18)
-                setRoom(arrCenter1, 19)
-                setRoom(arrCenter2, 20)
                 $('.patrol-graph').show()
 
                 patrolGraphTimer = setInterval(function () {

@@ -1,10 +1,10 @@
 /*新加巡检情况分布*/
 .patrol-graph{
     position: relative;
-    width: 1713px;
-    height: 960px;
+    width: 1730px;
+    height: 1000px;
     margin: 50px auto 0;
-    background: url("../img/graph.png") no-repeat;
+    background: url("../img/map.png") center 30px no-repeat;
     background-size: contain;
 }
 .patrol-graph-dialog{
@@ -210,112 +210,46 @@
     top: 220px !important;
 }
 .waiting-room-2-1{
-    display: none;
-    left: 740px;
-    top: 277px;
-}
-.waiting-room-3-1{
-    display: none;
-    left: 970px;
-    top: 267px;
-}
-.waiting-room-4-1{
-    left: 670px;
-    top: 410px;
-}
-.waiting-room-5-1{
     left: 1050px;
     top: 355px;
 }
-.waiting-room-6-1{
-    display: none;
-    left: 740px;
-    top: 500px;
+.waiting-room-3-1{
+    left: 700px;
+    top: 410px;
 }
-.waiting-room-7-1{
-    display: none;
-    left: 970px;
-    top: 500px;
-}
-.waiting-room-8-1{
-    display: none;
-    left: 740px;
-    top: 620px;
-}
-.waiting-room-9-1{
-    display: none;
-    left: 970px;
-    top: 600px;
-}
-.waiting-room-10-1{
-    left: 670px;
-    top: 750px;
-}
-.waiting-room-11-1{
+.waiting-room-4-1{
     left: 1050px;
     top: 640px;
 }
+.waiting-room-5-1{
+    left: 700px;
+    top: 720px;
+}
+.waiting-room-6-1{
+    left: 834px;
+    top: 254px;
+}
+.waiting-room-7-1{
+    left: 858px;
+    top: 500px;
+}
+.waiting-room-8-1{
+    left: 750px;
+    top: 100px;
+}
+.waiting-room-9-1{
+    left: 952px;
+    top: 100px;
+}
+.waiting-room-10-1{
+    left: 850px;
+    top: 900px;
+}
+.waiting-room-11-1{
+    left: 1243px;
+    top: 360px;
+}
 .waiting-room-12-1{
-    display: none;
-    left: 740px;
-    top: 800px;
+    left: 1243px;
+    top: 670px;
 }
-.waiting-room-13-1{
-    left: 850px;
-    top: 220px;
-}
-.waiting-room-14-1{
-    display: none;
-    left: 850px;
-    top: 830px;
-}
-.waiting-room-15-1{
-    display: none;
-    left: 1100px;
-    top: 400px;
-}
-.waiting-room-16-1{
-    display: none;
-    left: 1100px;
-    top: 575px;
-}
-.waiting-room-17-1{
-    display: none;
-    left: 600px;
-    top: 400px;
-}
-.waiting-room-18-1{
-    display: none;
-    left: 600px;
-    top: 575px;
-}
-.waiting-room-19-1{
-    left: 850px;
-    top: 580px;
-}
-.waiting-room-20-1{
-    display: none;
-    left: 850px;
-    top: 650px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
