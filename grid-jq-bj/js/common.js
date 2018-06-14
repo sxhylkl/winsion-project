@@ -94,6 +94,8 @@ function goLogin() {
             //获取区域和问题大类
             getAreaList()
             getQuestionTypeList()
+            // 加载第一个页面数据
+            $('#graphBtn').click()
         },
         error: function (err) {
             $('#infoDialogBox').dialogBox({
