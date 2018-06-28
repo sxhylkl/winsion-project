@@ -3,7 +3,7 @@ import VueResource from 'vue-resource';
 Vue.use(VueResource);
 
 //线下
-//export const URL = "http://172.16.5.34:9010";
+//export const URL = "http://172.16.5.34:9210";
 //线上
 export const URL = "http://mobile-api.tlbl.winsion.net";
 
