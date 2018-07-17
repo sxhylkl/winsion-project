@@ -196,7 +196,7 @@ const getters = {
       orderDetailList: getPriceAndAmount(orderDetailList, goods, currentType),
       alterOrderDetailList: getAlterPriceAndAmount(alterOrderDetailList, orderDetailList, goods, currentType),
       car: {
-        marketPrice: stationId == "1de76e8dac3c4ec5af2cdd06f2a5977b" ? transferPointPrice / 2 : transferPointPrice,
+        marketPrice: stationId == "1de76e8dac3c4ec5af2cdd06f2a5977b" ? transferPointPrice : transferPointPrice,
         transferPointName,
         href: getStandard(stationId, 'car', transferType)
       },

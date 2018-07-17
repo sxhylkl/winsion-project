@@ -35,7 +35,7 @@ const getters = {
     const locationData = getters.place_newOrderPrice_getLocationData
     const actualPrice = parseFloat(locationData.price)
 
-    const marketPrice = stationId == "1de76e8dac3c4ec5af2cdd06f2a5977b" ? actualPrice / 2 : actualPrice
+    const marketPrice = stationId == "1de76e8dac3c4ec5af2cdd06f2a5977b" ? actualPrice : actualPrice
     const locationName = locationData.name
     const href = getStandard(stationId, 'car', type)
     return {stationName, actualPrice, marketPrice, locationName, href}

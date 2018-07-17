@@ -5,7 +5,7 @@ import { getCookie } from '../api'
 // initial state
 let state = {
   version: '1.0',
-  userId:getCookie('userId'),
+  userId: getCookie('userId'),
   transferType: ''
 }
 

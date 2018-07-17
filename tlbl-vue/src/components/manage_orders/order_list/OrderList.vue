@@ -10,7 +10,7 @@
 </template>
 <script>
   import * as types from '../../../store/mutation-types'
-  import { setLocalStorage } from '../../../api'
+  import { setLocalStorage, getUrlData } from '../../../api'
   export default{
     created(){
       this._getCurrentNav()
@@ -30,9 +30,20 @@
         let arr = window.location.href.split('orderList')
         if (!arr[1]) {
           this.activeName = 'all'
-        }else {
+        } else if (arr[1].indexOf('?') !== -1){
+          const str = arr[1].split('?')
+          // 提交jwt和userId
+          const userId = getUrlData(this, 'userId')
+          this.$store.commit(types.TO__COMMON__CHANGE_USER_ID, userId)
+          if (!str[0]) {
+            this.activeName = 'all'
+          } else {
+            this.activeName = str[0].substring(1)
+          }
+        } else {
           this.activeName = arr[1].substring(1)
         }
+        this.routerTo()
       }
     }
   }
