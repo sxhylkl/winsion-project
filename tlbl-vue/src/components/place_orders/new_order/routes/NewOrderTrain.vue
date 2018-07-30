@@ -38,7 +38,7 @@
         <el-col :span="5" style="margin-left: 10px">车厢</el-col>
       </el-row>
       <el-row style="margin-bottom: 0.2rem;">
-        <el-col :span="7">{{type ? '接站起点' : '送站终点'}}:</el-col>
+        <el-col :span="7">{{type ? '送站起点' : '接站终点'}}:</el-col>
         <el-col :span="5">
           <el-select v-model="trainData.end" placeholder="请选择" @change="selectEnd">
             <el-option

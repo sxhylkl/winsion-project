@@ -35,7 +35,7 @@
   export default{
     created(){
       setLocalStorage(this)
-      this.$store.dispatch(types.MENU__SELECT_FUNCTION__GET_VERSION,{sendName:'sendVersion',receiveName:'receiveVersion'})
+      this.$store.dispatch(types.MENU__SELECT_FUNCTION__GET_VERSION,{sendName:' ',receiveName:'receiveVersion'})
     },
     components: {
       CreateOrder

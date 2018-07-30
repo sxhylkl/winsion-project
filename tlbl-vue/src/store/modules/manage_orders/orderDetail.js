@@ -587,9 +587,9 @@ const actions = {
       if (nowTime <= endTime) {
         alertContent = "已取消订单不可恢复，确认取消订单？";
       } else if (nowTime > endTime && nowTime < laterTime) {
-        alertContent = "服务即将开始，提前30分钟-2小时取消订单，将会收取总费用20%的手续费，剩余费用沿原支付途径返回。确认取消订单？";
+        alertContent = "服务即将开始，提前30分钟-2小时取消订单，将会收取总费用50%的手续费，剩余费用沿原支付途径返回。确认取消订单？";
       } else if (nowTime >= laterTime) {
-        alertContent = "服务即将开始，提前0-30分钟取消订单，将会收取总费用30%的手续费，剩余费用沿原支付途径返回。确认取消订单？"
+        alertContent = "服务即将开始，提前0-30分钟取消订单，将会收取总费用100%的手续费，剩余费用沿原支付途径返回。确认取消订单？"
       }
     }
 
@@ -602,9 +602,9 @@ const actions = {
       } else if (nowTime > endTime && nowTime <= arriveTime) {
         if ((delay > 0 && delay <= 30) || delay == -1 || delay == 0) {
           if (nowTime > endTime && nowTime < laterTime) {
-            alertContent = "服务即将开始，提前30分钟-2小时取消订单，将会收取总费用20%的手续费，剩余费用沿原支付途径返回。确认取消订单？";
+            alertContent = "服务即将开始，提前30分钟-2小时取消订单，将会收取总费用50%的手续费，剩余费用沿原支付途径返回。确认取消订单？";
           } else if (nowTime >= laterTime) {
-            alertContent = "服务即将开始，提前0-30分钟取消订单，将会收取总费用30%的手续费，剩余费用沿原支付途径返回。确认取消订单？"
+            alertContent = "服务即将开始，提前0-30分钟取消订单，将会收取总费用100%的手续费，剩余费用沿原支付途径返回。确认取消订单？"
           }
         } else if (delay > 0 && delay > 30) {
           alertContent = "已取消订单不可恢复，确认取消订单？";

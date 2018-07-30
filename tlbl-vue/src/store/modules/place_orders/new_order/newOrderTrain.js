@@ -149,14 +149,14 @@ const actions = {
       });
       return
     } else if (end == "") {
-      _this.$alert('接送起点不能为空！', '温馨提示', {
+      _this.$alert(type ? '送站起点不能为空！' : '接站终点不能为空！', '温馨提示', {
         confirmButtonText: '确定',
         callback: action => {
         }
       });
       return
     } else if (location == "") {
-      _this.$alert('接送起点不能为空！', '温馨提示', {
+      _this.$alert(type ? '送站起点不能为空！' : '接站终点不能为空！', '温馨提示', {
         confirmButtonText: '确定',
         callback: action => {
         }
