@@ -1,5 +1,6 @@
 //var dataUrl = '';
-var dataUrl = 'http://121.69.136.97:9411';
+var dataUrl = 'http://172.16.0.17:9411';
+//var dataUrl = 'http://121.69.136.97:9411';
 //var dataUrl = 'http://172.16.6.81:9411'
 //var dataUrl = 'http://172.16.200.20:19411'
 /*(function () {
@@ -522,7 +523,7 @@ function getAreaList() {
         url: dataUrl + "/kingkong/0.01/job/gridFindByBaseCondition",
         data: {data: dataJson},
         success: function (result) {
-            
+
             $('#accountPicture').show()
             var list = ['<option value="">全部</option>']
             result.data.dataList.forEach(function (item) {
