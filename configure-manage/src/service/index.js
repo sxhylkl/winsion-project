@@ -6,12 +6,15 @@ Vue.use(VueResource);
 //export const MQIP = "10.0.0.2";
 //公司
 //export const URL = "http://172.16.6.11:9411";
-export const URL = "http://172.16.0.17:9411";
-export const MQIP = "172.16.0.17";
+//export const URL = "http://172.16.0.17:9411";
+//export const MQIP = "172.16.0.17";
 //郑州
 //export const URL = "http://10.0.0.24:9411";
 //export const MQIP = "10.0.0.24";
 export const MQPORT = 61614;
+//测试
+export const URL = "http://172.16.6.6:9411";
+export const MQIP = "172.16.6.6";
 
 export default {
   //content查询，增加，修改，删除
