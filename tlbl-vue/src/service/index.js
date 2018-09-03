@@ -3,10 +3,10 @@ import VueResource from 'vue-resource';
 Vue.use(VueResource);
 
 //线下
-//export const URL = "http://172.16.5.34:9210";
+export const URL = "http://172.16.5.34:9210";
 //export const URL = "http://172.16.5.34:9010";
 //线上
-export const URL = "http://mobile-api.tlbl.winsion.net";
+//export const URL = "http://mobile-api.tlbl.winsion.net";
 
 export default {
   updateUserAgreeTransferService(data) {
